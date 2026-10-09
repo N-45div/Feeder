@@ -47,3 +47,4 @@ CLAUDE.md
 
 # raw source data pulled by scripts (never committed)
 /data/raw/
+/data/cache/
