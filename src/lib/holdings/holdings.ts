@@ -78,13 +78,21 @@ export function readHoldings(text: string): Holdings {
   const [header, ...body] = parseCsv(text);
   if (!header) throw new Error("The file is empty.");
   const col = detectColumns(header);
+  return buildHoldings(
+    body.map((r) => ({
+      title: (col.title >= 0 ? r[col.title] : "")?.trim() ?? "",
+      author: col.author >= 0 ? r[col.author]?.trim() || null : null,
+      isbns: col.isbn >= 0 ? isbnsIn(r[col.isbn]) : [],
+      copies: col.copies >= 0 ? Math.max(1, Number.parseInt(r[col.copies], 10) || 1) : 1,
+    })),
+  );
+}
+
+/** Folds rows (one per title or one per copy) into holdings keyed by ISBN and by title + surname. */
+export function buildHoldings(input: HoldingRow[]): Holdings {
   const byKey = new Map<string, HoldingRow>();
-  for (const r of body) {
-    const title = (col.title >= 0 ? r[col.title] : "")?.trim() ?? "";
-    const author = col.author >= 0 ? r[col.author]?.trim() || null : null;
-    const isbns = col.isbn >= 0 ? isbnsIn(r[col.isbn]) : [];
+  for (const { title, author, isbns, copies } of input) {
     if (!title && !isbns.length) continue;
-    const copies = col.copies >= 0 ? Math.max(1, Number.parseInt(r[col.copies], 10) || 1) : 1;
     const key = title ? titleKey(title, author) : `isbn:${isbns[0]}`;
     const existing = byKey.get(key);
     if (existing) {
