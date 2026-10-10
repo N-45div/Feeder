@@ -58,9 +58,11 @@ export async function findBooks(get: Getter, interests: TalliedInterest[], opts:
   const total = active.reduce((sum, i) => sum + i.count, 0);
   if (!total) return [];
 
+  // Queries run together (the Qloo client keeps them under its rate limit); results merge in a fixed order.
+  const responses = await Promise.all(active.map((interest) => get("/v2/insights", bookQuery(interest.signal, opts))));
   const merged = new Map<string, { book: QlooBook; score: number; parts: Map<string, { label: string; value: number }> }>();
-  for (const interest of active) {
-    const res = await get("/v2/insights", bookQuery(interest.signal, opts));
+  for (const [index, interest] of active.entries()) {
+    const res = responses[index];
     const weight = interest.count / total;
     (res.results?.entities ?? []).forEach((book, rank) => {
       const value = weight / (RANK_K + rank);
