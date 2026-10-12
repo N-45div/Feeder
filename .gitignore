@@ -48,3 +48,8 @@ CLAUDE.md
 # raw source data pulled by scripts (never committed)
 /data/raw/
 /data/cache/
+
+# coding-assistant files some CLIs add (never part of the product)
+.agents/
+.claude/
+skills-lock.json
