@@ -1,69 +1,67 @@
-import Image from "next/image";
+import Link from "next/link";
+import feeder from "../../data/eval/feeder.json";
+import { listUniversities } from "@/lib/data/desk";
+import { Picker } from "./picker";
 
-export default function Home() {
+/** The worked example on the home page. */
+const EXAMPLE = 209551; // University of Oregon
+
+const STEPS = [
+  { n: "01", title: "Read the state board", body: "Where people lean toward your university, against how many freshmen each state actually sent and what geography predicts." },
+  { n: "02", title: "Plan the road trip", body: "The metros outside your state where the pull is strongest, ranked for recruiter travel." },
+  { n: "03", title: "Open a metro brief", body: "The high schools Qloo ranks highest for your audience there, the colleges you compete with, and what that audience listens to and watches." },
+  { n: "04", title: "Ask Feeder", body: "An agent with the desk's tools that plans trips and drafts outreach. It also works inside Claude." },
+];
+
+export default async function Home() {
+  const universities = await listUniversities();
+  const r = feeder.fall2022;
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="space-y-14">
+      <section className="flex flex-wrap items-center gap-10 pt-4">
+        <div className="min-w-0 flex-[1_1_480px]">
+          <p className="kicker">For enrollment and admissions teams</p>
+          <h1 className="mt-3 font-varsity text-5xl leading-[0.95] tracking-wide sm:text-[68px]">FIND YOUR NEXT FRESHMEN.</h1>
+          <p className="mt-5 max-w-[36rem] text-lg leading-relaxed text-muted">
+            Feeder shows where your university&apos;s brand already pulls beyond its freshman pipeline, which metros and high schools to visit, and what resonates
+            there. Taste data from Qloo, checked against federal enrollment records.
           </p>
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <a href="#pick" className="press card-sm inline-flex min-h-[52px] items-center rounded-full bg-pennant px-6 text-[17px] font-bold">Pick your university</a>
+            <Link href={`/u/${EXAMPLE}`} className="font-bold text-pennant-ink hover:underline">See the University of Oregon&apos;s desk</Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        <dl className="grid min-w-0 flex-[1_1_380px] grid-cols-2 gap-3">
+          {[
+            [String(universities.length), "universities with a desk"],
+            [String(r.universities), "tested against IPEDS, 2022 and 2020"],
+            [`+${r.partial_spearman_vs_gravity_residual.qloo.mean.toFixed(2)}`, "what Qloo explains beyond population and distance"],
+            [r.partial_spearman_vs_gravity_residual.placebo.mean.toFixed(2), "the same for a placebo"],
+          ].map(([value, label], i) => (
+            <div key={label} className="card pop flex flex-col-reverse p-4" style={{ animationDelay: `${150 + i * 90}ms` }}>
+              <dt className="mt-1 text-sm leading-snug text-muted">{label}</dt>
+              <dd className="figure text-[34px] font-bold">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section aria-labelledby="how">
+        <h2 id="how" className="text-[30px] font-bold tracking-tight">How a recruiting season plays</h2>
+        <ol className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4">
+          {STEPS.map((s, i) => (
+            <li key={s.n} className="card rise flex flex-col gap-2 p-5" style={{ animationDelay: `${i * 80}ms` }}>
+              <span className="font-varsity text-3xl text-pennant-ink">{s.n}</span>
+              <h3 className="text-xl font-bold">{s.title}</h3>
+              <p className="text-[15px] leading-relaxed text-muted">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section aria-labelledby="pick" className="scroll-mt-6">
+        <Picker universities={universities} />
+      </section>
     </div>
   );
 }
