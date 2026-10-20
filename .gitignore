@@ -53,3 +53,10 @@ CLAUDE.md
 .agents/
 .claude/
 skills-lock.json
+
+# source downloads and Qloo output (never committed)
+/data/raw/
+/data/cache/
+.env*
+!.env.example
+.vercel
