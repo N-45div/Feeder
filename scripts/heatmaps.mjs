@@ -20,7 +20,8 @@ async function heatmap(entityId) {
   throw new Error("heatmap kept failing");
 }
 
-const resolved = JSON.parse(readFileSync("data/cache/resolved.json", "utf8"));
+// The evaluation's strict matches plus product-only matches (scripts/resolve-more.mjs).
+const resolved = { ...JSON.parse(readFileSync("data/cache/resolved.json", "utf8")), ...(existsSync("data/cache/resolved-extra.json") ? Object.fromEntries(Object.entries(JSON.parse(readFileSync("data/cache/resolved-extra.json", "utf8"))).filter(([, r]) => r.entityId)) : {}) };
 const todo = Object.entries(resolved).filter(([id, r]) => r.entityId && !existsSync(`${OUT}/${id}.json`));
 let next = 0, failed = 0;
 async function worker() {
