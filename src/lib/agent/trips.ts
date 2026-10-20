@@ -63,7 +63,9 @@ export function planTrips(metros: TripMetro[], opts: { recruiters: number; weeks
       if (!week || week.length >= perWeek || distanceKm(last.lat, last.lon, stop.lat, stop.lon) > MAX_HOP_KM) weeks.push([stop]);
       else week.push(stop);
     }
-    weeks.slice(0, opts.weeks).forEach((stops, w) => trips.push({ recruiter: r + 1, week: w + 1, stops: stops.map((s) => ({ cbsa: s.cbsa, city: s.city, states: s.states, pull: s.pull })) }));
+    // More weeks than asked for (a far stop took a week alone): keep the weeks with the most pull, in route order.
+    const keep = new Set([...weeks].sort((a, b) => b.reduce((s, x) => s + x.pull, 0) - a.reduce((s, x) => s + x.pull, 0)).slice(0, opts.weeks));
+    weeks.filter((w) => keep.has(w)).forEach((stops, w) => trips.push({ recruiter: r + 1, week: w + 1, stops: stops.map((s) => ({ cbsa: s.cbsa, city: s.city, states: s.states, pull: s.pull })) }));
   }
   return trips;
 }

@@ -29,6 +29,17 @@ describe("planTrips", () => {
     expect(trips.map((t) => t.stops.map((s) => s.city))).toEqual([["Honolulu"], ["San Francisco", "San Jose"]]);
   });
 
+  it("drops the weakest weeks, not the last ones, when stops don't fit", () => {
+    const west = [
+      { ...m("8", "Honolulu", "HI", -157.9, 0.5), lat: 21.3 },
+      { ...m("9", "San Francisco", "CA", -122.4, 0.9), lat: 37.8 },
+      { ...m("10", "Seattle", "WA", -122.3, 0.88), lat: 47.6 },
+    ];
+    const trips = planTrips(west, { recruiters: 1, weeks: 2, stopsPerWeek: 1 });
+    expect(trips.flatMap((t) => t.stops.map((s) => s.city))).toEqual(["San Francisco", "Seattle"]);
+    expect(trips.map((t) => t.week)).toEqual([1, 2]);
+  });
+
   it("keeps to a region when asked", () => {
     const trips = planTrips(metros, { recruiters: 1, weeks: 2, stopsPerWeek: 1, region: "west" });
     expect(trips.flatMap((t) => t.stops.map((s) => s.states[0]))).toEqual(expect.arrayContaining(["WA", "OR"]));
