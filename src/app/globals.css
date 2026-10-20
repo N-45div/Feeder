@@ -44,17 +44,19 @@ body {
   color: var(--ink);
 }
 
-/* ---- the kit */
-.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 22px; box-shadow: 5px 5px 0 var(--ink); }
-.card-sm { border: 1.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
-.kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pennant-ink); }
-/* A banner with a pointed tip: the text keeps its full width. */
-.pennant { clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 50%, calc(100% - 44px) 100%, 0 100%); }
-.figure { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+/* ---- the kit, in the components layer so utilities (bg-ink on a card, say) win over it */
+@layer components {
+  .card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 22px; box-shadow: 5px 5px 0 var(--ink); }
+  .card-sm { border: 1.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pennant-ink); }
+  /* A banner with a pointed tip: the text keeps its full width. */
+  .pennant { clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 50%, calc(100% - 44px) 100%, 0 100%); }
+  .figure { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
 
-.press { transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease; }
-.press:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
-.press:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+  .press { transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease; }
+  .press:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .press:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+}
 
 /* ---- motion */
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
