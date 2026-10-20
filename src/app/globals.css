@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
+/* Feeder: a recruiting-season desk. Light only; pennant orange for action, teal for strongholds, aubergine ink. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --bg: #f6f5fa;
+  --surface: #ffffff;
+  --ink: #1a1530;
+  --muted: #4f4867;
+  --line: #dcd8e8;
+  --pennant: #ff6a2b;
+  --pennant-ink: #c2410c;
+  --pennant-soft: #fff4ee;
+  --teal: #0b7a6f;
+  --teal-soft: #effaf7;
+  --lilac: #c3b6fa;
+  --quiet: #e7e4f0;
+  --warn: #9a3412;
+  --warn-soft: #ffedd5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-pennant: var(--pennant);
+  --color-pennant-ink: var(--pennant-ink);
+  --color-pennant-soft: var(--pennant-soft);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-lilac: var(--lilac);
+  --color-quiet: var(--quiet);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --font-sans: var(--font-instrument);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-varsity: var(--font-graduate);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ---- the kit */
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 22px; box-shadow: 5px 5px 0 var(--ink); }
+.card-sm { border: 1.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+.kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pennant-ink); }
+/* A banner with a pointed tip: the text keeps its full width. */
+.pennant { clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 50%, calc(100% - 44px) 100%, 0 100%); }
+.figure { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+.press { transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease; }
+.press:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.press:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+
+/* ---- motion */
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 70% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes wave { 0%, 100% { transform: skewY(0deg); } 50% { transform: skewY(-4deg); } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+
+.rise { animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.pop { animation: pop 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.wave { transform-origin: left center; animation: wave 3.2s ease-in-out infinite; }
+.bar-grow { transform-origin: left; animation: grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.shimmer { background: linear-gradient(90deg, var(--quiet) 25%, #f7f6fb 50%, var(--quiet) 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .pop, .wave, .bar-grow, .shimmer { animation: none; }
+  .press, .press:hover, .press:active { transition: none; transform: none; }
 }
