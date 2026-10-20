@@ -89,3 +89,10 @@ All three conditions must hold:
 - Where students come from also reflects past recruiting, alumni, athletics and price. The test can't separate taste from those.
 - It is state-level only. IPEDS has no metro detail, so the metros Feeder suggests within a state are not tested here.
 - Only first-time students are counted. Transfers and graduate students are not.
+
+## Amendment 1 (Oct 21 2026, after resolving names, before any heatmap or assistant call for the test set)
+
+- Two resolution fixes, both made before any score was computed:
+  - **Aliases shorter than four characters don't count.** Georgetown University's IPEDS alias "GU" matched an unrelated entity.
+  - **"Online" isn't treated as a campus label.** Treating it as one let "University of Arkansas" match "Arkansas Online".
+- Result: 133 of the 260 qualifying universities resolve, and 124 of those are outside the pilot.
