@@ -7,6 +7,9 @@ import type { Group } from "../score/board";
 const ABBR: Record<string, string> = Object.fromEntries((paths.paths as { name: string; abbr: string }[]).map((p) => [p.name, p.abbr]));
 export const stateAbbr = (name: string) => ABBR[name] ?? name.slice(0, 2).toUpperCase();
 
+/** Recruiter trips go to metros of at least this many people. */
+export const TRIP_MIN_POP = 500_000;
+
 export interface UniversitySummary {
   unitid: number;
   name: string;
@@ -18,7 +21,10 @@ export interface UniversitySummary {
 }
 
 type UniRow = { unitid: number; name: string; city: string; state: string; control: string | null; first_time_2022: number; out_share_2022: number };
-const summary = (r: UniRow): UniversitySummary => ({ unitid: r.unitid, name: r.name, city: r.city, state: r.state, control: r.control, firstTime2022: r.first_time_2022, outShare2022: r.out_share_2022 });
+/** IPEDS names carry campus labels ("-Main Campus", " Campus Immersion"); people don't say them. */
+export const displayName = (name: string) => name.replace(/\s*-\s*(main campus|[a-z ]+ campus)$/i, "").replace(/ campus immersion$/i, "").trim();
+
+const summary = (r: UniRow): UniversitySummary => ({ unitid: r.unitid, name: displayName(r.name), city: r.city, state: r.state, control: r.control, firstTime2022: r.first_time_2022, outShare2022: r.out_share_2022 });
 
 export async function listUniversities(): Promise<UniversitySummary[]> {
   const rows = (await sql()`select unitid, name, city, state, control, first_time_2022, out_share_2022 from universities order by name`) as UniRow[];
@@ -59,7 +65,7 @@ export async function getDesk(unitid: number): Promise<Desk | null> {
   const board = (await db`select state, freshmen, expected, pull, grp, gap from state_board where unitid = ${unitid} order by pull desc`) as { state: string; freshmen: number; expected: number; pull: number; grp: Group; gap: number }[];
   const home = stateAbbr(u.state);
   const metros = (await db`select m.cbsa, m.name, m.city, m.states, m.pop2025, p.pull, p.distance_km from metro_pull p join metros m on m.cbsa = p.cbsa
-    where p.unitid = ${unitid} and not (${home} = any(m.states)) order by p.pull desc, m.pop2025 desc limit 12`) as { cbsa: string; name: string; city: string; states: string[]; pop2025: number; pull: number; distance_km: number }[];
+    where p.unitid = ${unitid} and not (${home} = any(m.states)) and m.pop2025 >= ${TRIP_MIN_POP} order by p.pull desc, m.pop2025 desc limit 12`) as { cbsa: string; name: string; city: string; states: string[]; pop2025: number; pull: number; distance_km: number }[];
   return {
     university: { ...summary(u), qlooEntityId: u.qloo_entity_id, qlooName: u.qloo_name, home2022: u.home_2022, website: u.website, lat: u.lat, lon: u.lon, inTest: u.in_test },
     board: board.map((b) => ({ state: b.state, abbr: stateAbbr(b.state), freshmen: b.freshmen, expected: b.expected, pull: b.pull, group: b.grp, gap: b.gap })),
