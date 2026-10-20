@@ -1,0 +1,560 @@
+{
+ "source": "Seattle Public Library, Checkouts by Title (Physical Items), public domain",
+ "seeds": 20,
+ "primary_teen_shelves": {
+  "2025": {
+   "titles_per_arm": {
+    "desk": 391,
+    "llm": 400,
+    "popularity": 391,
+    "random": 391
+   },
+   "match_rate_pct": {
+    "desk": 28.4,
+    "llm": 37.0,
+    "popularity": 37.1,
+    "random": 27.9
+   },
+   "matched_titles": {
+    "desk": 111,
+    "llm": 148,
+    "popularity": 145,
+    "random": 109
+   },
+   "median_checkouts_per_copy": {
+    "desk": 2.71,
+    "llm": 5.83,
+    "popularity": 3.0,
+    "random": 2.6
+   },
+   "main": {
+    "llm": {
+     "desk_advantage_pct": -42.4,
+     "ci95": [
+      -50.7,
+      -32.7
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -8.3,
+     "ci95": [
+      -14.1,
+      -2.0
+     ],
+     "p": 0.0101
+    },
+    "random": {
+     "desk_advantage_pct": 5.9,
+     "ci95": [
+      -2.4,
+      15.0
+     ],
+     "p": 0.1701
+    }
+   },
+   "with_log_copies": {
+    "llm": {
+     "desk_advantage_pct": -24.9,
+     "ci95": [
+      -34.7,
+      -13.7
+     ],
+     "p": 0.0001
+    },
+    "popularity": {
+     "desk_advantage_pct": -7.0,
+     "ci95": [
+      -12.5,
+      -1.1
+     ],
+     "p": 0.0197
+    },
+    "random": {
+     "desk_advantage_pct": 2.8,
+     "ci95": [
+      -3.9,
+      9.9
+     ],
+     "p": 0.4279
+    }
+   },
+   "with_graphic_and_year": {
+    "llm": {
+     "desk_advantage_pct": -35.7,
+     "ci95": [
+      -46.0,
+      -23.3
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -8.1,
+     "ci95": [
+      -13.4,
+      -2.6
+     ],
+     "p": 0.0044
+    },
+    "random": {
+     "desk_advantage_pct": 8.2,
+     "ci95": [
+      -0.1,
+      17.1
+     ],
+     "p": 0.0523
+    }
+   },
+   "bounds_mean_checkouts_per_copy_unmatched_zero": {
+    "desk": {
+     "mean": 0.89,
+     "ci95": [
+      0.6,
+      1.2
+     ]
+    },
+    "llm": {
+     "mean": 1.98,
+     "ci95": [
+      1.6,
+      2.37
+     ]
+    },
+    "popularity": {
+     "mean": 1.21,
+     "ci95": [
+      0.83,
+      1.57
+     ]
+    },
+    "random": {
+     "mean": 0.83,
+     "ci95": [
+      0.55,
+      1.14
+     ]
+    }
+   },
+   "leave_one_author_out_desk_vs_llm_pct": [
+    -45.5,
+    -37.1
+   ]
+  },
+  "2026_jan_aug": {
+   "titles_per_arm": {
+    "desk": 391,
+    "llm": 400,
+    "popularity": 391,
+    "random": 391
+   },
+   "match_rate_pct": {
+    "desk": 26.9,
+    "llm": 35.5,
+    "popularity": 35.3,
+    "random": 25.3
+   },
+   "matched_titles": {
+    "desk": 105,
+    "llm": 142,
+    "popularity": 138,
+    "random": 99
+   },
+   "median_checkouts_per_copy": {
+    "desk": 1.67,
+    "llm": 3.74,
+    "popularity": 2.0,
+    "random": 1.75
+   },
+   "main": {
+    "llm": {
+     "desk_advantage_pct": -46.7,
+     "ci95": [
+      -54.2,
+      -37.9
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -4.4,
+     "ci95": [
+      -9.5,
+      1.1
+     ],
+     "p": 0.1167
+    },
+    "random": {
+     "desk_advantage_pct": -1.8,
+     "ci95": [
+      -7.7,
+      4.4
+     ],
+     "p": 0.5652
+    }
+   },
+   "with_log_copies": {
+    "llm": {
+     "desk_advantage_pct": -29.5,
+     "ci95": [
+      -37.8,
+      -20.2
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -3.0,
+     "ci95": [
+      -8.0,
+      2.3
+     ],
+     "p": 0.2607
+    },
+    "random": {
+     "desk_advantage_pct": -4.6,
+     "ci95": [
+      -9.5,
+      0.6
+     ],
+     "p": 0.0811
+    }
+   },
+   "with_graphic_and_year": {
+    "llm": {
+     "desk_advantage_pct": -34.7,
+     "ci95": [
+      -43.1,
+      -25.0
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -4.9,
+     "ci95": [
+      -9.0,
+      -0.6
+     ],
+     "p": 0.0257
+    },
+    "random": {
+     "desk_advantage_pct": 0.4,
+     "ci95": [
+      -4.2,
+      5.3
+     ],
+     "p": 0.8598
+    }
+   },
+   "bounds_mean_checkouts_per_copy_unmatched_zero": {
+    "desk": {
+     "mean": 0.57,
+     "ci95": [
+      0.38,
+      0.76
+     ]
+    },
+    "llm": {
+     "mean": 1.31,
+     "ci95": [
+      1.04,
+      1.56
+     ]
+    },
+    "popularity": {
+     "mean": 0.77,
+     "ci95": [
+      0.53,
+      1.01
+     ]
+    },
+    "random": {
+     "mean": 0.55,
+     "ci95": [
+      0.36,
+      0.76
+     ]
+    }
+   },
+   "leave_one_author_out_desk_vs_llm_pct": [
+    -50.0,
+    -41.8
+   ]
+  }
+ },
+ "exploratory_teen_and_children_shelves": {
+  "2025": {
+   "titles_per_arm": {
+    "desk": 391,
+    "llm": 400,
+    "popularity": 391,
+    "random": 391
+   },
+   "match_rate_pct": {
+    "desk": 33.5,
+    "llm": 45.5,
+    "popularity": 42.7,
+    "random": 33.5
+   },
+   "matched_titles": {
+    "desk": 131,
+    "llm": 182,
+    "popularity": 167,
+    "random": 131
+   },
+   "median_checkouts_per_copy": {
+    "desk": 3.0,
+    "llm": 5.67,
+    "popularity": 3.0,
+    "random": 2.67
+   },
+   "main": {
+    "llm": {
+     "desk_advantage_pct": -37.6,
+     "ci95": [
+      -45.0,
+      -29.3
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -5.6,
+     "ci95": [
+      -11.3,
+      0.4
+     ],
+     "p": 0.0673
+    },
+    "random": {
+     "desk_advantage_pct": 8.9,
+     "ci95": [
+      1.4,
+      16.9
+     ],
+     "p": 0.0192
+    }
+   },
+   "with_log_copies": {
+    "llm": {
+     "desk_advantage_pct": -18.3,
+     "ci95": [
+      -26.7,
+      -8.9
+     ],
+     "p": 0.0003
+    },
+    "popularity": {
+     "desk_advantage_pct": -6.1,
+     "ci95": [
+      -11.5,
+      -0.5
+     ],
+     "p": 0.0344
+    },
+    "random": {
+     "desk_advantage_pct": 3.1,
+     "ci95": [
+      -2.6,
+      9.1
+     ],
+     "p": 0.2904
+    }
+   },
+   "with_graphic_and_year": {
+    "llm": {
+     "desk_advantage_pct": -31.4,
+     "ci95": [
+      -39.1,
+      -22.8
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -6.6,
+     "ci95": [
+      -11.6,
+      -1.4
+     ],
+     "p": 0.0136
+    },
+    "random": {
+     "desk_advantage_pct": 9.5,
+     "ci95": [
+      2.3,
+      17.2
+     ],
+     "p": 0.0093
+    }
+   },
+   "bounds_mean_checkouts_per_copy_unmatched_zero": {
+    "desk": {
+     "mean": 1.14,
+     "ci95": [
+      0.86,
+      1.45
+     ]
+    },
+    "llm": {
+     "mean": 2.39,
+     "ci95": [
+      2.04,
+      2.74
+     ]
+    },
+    "popularity": {
+     "mean": 1.48,
+     "ci95": [
+      1.16,
+      1.79
+     ]
+    },
+    "random": {
+     "mean": 1.04,
+     "ci95": [
+      0.75,
+      1.36
+     ]
+    }
+   },
+   "leave_one_author_out_desk_vs_llm_pct": [
+    -40.1,
+    -33.1
+   ]
+  },
+  "2026_jan_aug": {
+   "titles_per_arm": {
+    "desk": 391,
+    "llm": 400,
+    "popularity": 391,
+    "random": 391
+   },
+   "match_rate_pct": {
+    "desk": 31.7,
+    "llm": 44.0,
+    "popularity": 39.9,
+    "random": 30.4
+   },
+   "matched_titles": {
+    "desk": 124,
+    "llm": 176,
+    "popularity": 156,
+    "random": 119
+   },
+   "median_checkouts_per_copy": {
+    "desk": 2.0,
+    "llm": 3.82,
+    "popularity": 2.0,
+    "random": 1.87
+   },
+   "main": {
+    "llm": {
+     "desk_advantage_pct": -42.3,
+     "ci95": [
+      -50.8,
+      -32.4
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -2.1,
+     "ci95": [
+      -7.5,
+      3.6
+     ],
+     "p": 0.4677
+    },
+    "random": {
+     "desk_advantage_pct": 3.2,
+     "ci95": [
+      -3.1,
+      10.0
+     ],
+     "p": 0.3288
+    }
+   },
+   "with_log_copies": {
+    "llm": {
+     "desk_advantage_pct": -23.3,
+     "ci95": [
+      -31.3,
+      -14.4
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -1.5,
+     "ci95": [
+      -5.9,
+      3.2
+     ],
+     "p": 0.5229
+    },
+    "random": {
+     "desk_advantage_pct": -1.7,
+     "ci95": [
+      -5.5,
+      2.3
+     ],
+     "p": 0.4042
+    }
+   },
+   "with_graphic_and_year": {
+    "llm": {
+     "desk_advantage_pct": -30.7,
+     "ci95": [
+      -39.5,
+      -20.7
+     ],
+     "p": 0.0
+    },
+    "popularity": {
+     "desk_advantage_pct": -4.4,
+     "ci95": [
+      -8.8,
+      0.3
+     ],
+     "p": 0.0668
+    },
+    "random": {
+     "desk_advantage_pct": 4.9,
+     "ci95": [
+      0.5,
+      9.5
+     ],
+     "p": 0.0288
+    }
+   },
+   "bounds_mean_checkouts_per_copy_unmatched_zero": {
+    "desk": {
+     "mean": 0.75,
+     "ci95": [
+      0.57,
+      0.95
+     ]
+    },
+    "llm": {
+     "mean": 1.64,
+     "ci95": [
+      1.39,
+      1.88
+     ]
+    },
+    "popularity": {
+     "mean": 0.95,
+     "ci95": [
+      0.73,
+      1.17
+     ]
+    },
+    "random": {
+     "mean": 0.69,
+     "ci95": [
+      0.48,
+      0.93
+     ]
+    }
+   },
+   "leave_one_author_out_desk_vs_llm_pct": [
+    -44.8,
+    -38.4
+   ]
+  }
+ }
+}
