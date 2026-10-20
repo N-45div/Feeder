@@ -60,3 +60,10 @@ skills-lock.json
 .env*
 !.env.example
 .vercel
+
+# coding-assistant files some tools add
+AGENTS.md
+CLAUDE.md
+.agents/
+.claude/
+skills-lock.json
