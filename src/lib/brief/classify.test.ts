@@ -13,6 +13,10 @@ describe("placeKind", () => {
     ["Edwards Stadium", "other"],
     ["Saul's Deli Parklet", "other"],
     ["Haas School of Business", "college"],
+    ["Stanford Law School", "other"],
+    ["Menlo School", "high_school"],
+    ["Clayton Valley Charter High School", "high_school"],
+    ["Anderson Collection at Stanford University", "other"],
   ])("%s is %s", (name, kind) => expect(placeKind(name)).toBe(kind));
 });
 

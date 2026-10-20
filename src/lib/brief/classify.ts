@@ -6,11 +6,11 @@ export type PlaceKind = "high_school" | "college" | "other";
 const HIGH_SCHOOL = /\b(high school|preparatory|prep|academy|secondary school|middle and high school|charter school|catholic high|jesuit high|day school)\b/i;
 const COLLEGE = /\b(college|university|universidad|institute of technology|community college|polytechnic|school of (law|medicine|business|nursing))\b/i;
 // Parts of a university (a business school, an athletics venue) aren't separate colleges.
-const PART = /\b(stadium|arena|field|hall|library|museum|center for|centre for|department of)\b/i;
+const PART = /\b(stadium|arena|field|hall|library|museum|collection|gallery|center for|centre for|department of)\b/i;
 
 // "The Athenian School" is a high school; "Alonzo King LINES Ballet School" and "Haas School of Business" are not.
 const ENDS_SCHOOL = /\bschool$/i;
-const NOT_HIGH_SCHOOL = /\b(dance|ballet|music|art|arts|driving|montessori|elementary|preschool|language|cooking|culinary|surf|flight|yoga|beauty|swim|martial|kindergarten|nursery|graduate)\b/i;
+const NOT_HIGH_SCHOOL = /\b(dance|ballet|music|art|arts|driving|montessori|elementary|preschool|language|cooking|culinary|surf|flight|yoga|beauty|swim|martial|kindergarten|nursery|graduate|law|medical|medicine|business|nursing|dental|divinity)\b/i;
 
 export function placeKind(name: string): PlaceKind {
   const trimmed = name.trim();
