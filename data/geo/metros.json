@@ -1,0 +1,2197 @@
+{
+ "source": "US Census Bureau: 2023 Gazetteer (CBSA internal points) and Vintage 2025 metro population estimates",
+ "metros": [
+  {
+   "cbsa": "35620",
+   "name": "New York-Newark-Jersey City, NY-NJ",
+   "city": "New York",
+   "states": [
+    "NY",
+    "NJ"
+   ],
+   "pop2025": 20112448,
+   "lat": 40.735425,
+   "lon": -73.80773
+  },
+  {
+   "cbsa": "31080",
+   "name": "Los Angeles-Long Beach-Anaheim, CA",
+   "city": "Los Angeles",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 12844441,
+   "lat": 34.108703,
+   "lon": -118.182753
+  },
+  {
+   "cbsa": "16980",
+   "name": "Chicago-Naperville-Elgin, IL-IN",
+   "city": "Chicago",
+   "states": [
+    "IL",
+    "IN"
+   ],
+   "pop2025": 9434123,
+   "lat": 41.75878,
+   "lon": -87.841887
+  },
+  {
+   "cbsa": "19100",
+   "name": "Dallas-Fort Worth-Arlington, TX",
+   "city": "Dallas",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 8477157,
+   "lat": 32.849171,
+   "lon": -96.970489
+  },
+  {
+   "cbsa": "26420",
+   "name": "Houston-Pasadena-The Woodlands, TX",
+   "city": "Houston",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 7904627,
+   "lat": 29.801005,
+   "lon": -95.34262
+  },
+  {
+   "cbsa": "12060",
+   "name": "Atlanta-Sandy Springs-Roswell, GA",
+   "city": "Atlanta",
+   "states": [
+    "GA"
+   ],
+   "pop2025": 6482182,
+   "lat": 33.732402,
+   "lon": -84.392848
+  },
+  {
+   "cbsa": "47900",
+   "name": "Washington-Arlington-Alexandria, DC-VA-MD-WV",
+   "city": "Washington",
+   "states": [
+    "DC",
+    "VA",
+    "MD",
+    "WV"
+   ],
+   "pop2025": 6465724,
+   "lat": 38.829787,
+   "lon": -77.495684
+  },
+  {
+   "cbsa": "33100",
+   "name": "Miami-Fort Lauderdale-West Palm Beach, FL",
+   "city": "Miami",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 6391072,
+   "lat": 26.101828,
+   "lon": -80.478755
+  },
+  {
+   "cbsa": "37980",
+   "name": "Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",
+   "city": "Philadelphia",
+   "states": [
+    "PA",
+    "NJ",
+    "DE",
+    "MD"
+   ],
+   "pop2025": 6329118,
+   "lat": 39.894958,
+   "lon": -75.311982
+  },
+  {
+   "cbsa": "38060",
+   "name": "Phoenix-Mesa-Chandler, AZ",
+   "city": "Phoenix",
+   "states": [
+    "AZ"
+   ],
+   "pop2025": 5228938,
+   "lat": 33.185765,
+   "lon": -112.067862
+  },
+  {
+   "cbsa": "14460",
+   "name": "Boston-Cambridge-Newton, MA-NH",
+   "city": "Boston",
+   "states": [
+    "MA",
+    "NH"
+   ],
+   "pop2025": 5034221,
+   "lat": 42.517606,
+   "lon": -71.021993
+  },
+  {
+   "cbsa": "40140",
+   "name": "Riverside-San Bernardino-Ontario, CA",
+   "city": "Riverside",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 4769007,
+   "lat": 34.538476,
+   "lon": -116.134541
+  },
+  {
+   "cbsa": "41860",
+   "name": "San Francisco-Oakland-Fremont, CA",
+   "city": "San Francisco",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 4630041,
+   "lat": 37.773718,
+   "lon": -122.274432
+  },
+  {
+   "cbsa": "19820",
+   "name": "Detroit-Warren-Dearborn, MI",
+   "city": "Detroit",
+   "states": [
+    "MI"
+   ],
+   "pop2025": 4390913,
+   "lat": 42.721848,
+   "lon": -83.200846
+  },
+  {
+   "cbsa": "42660",
+   "name": "Seattle-Tacoma-Bellevue, WA",
+   "city": "Seattle",
+   "states": [
+    "WA"
+   ],
+   "pop2025": 4161883,
+   "lat": 47.490552,
+   "lon": -121.833977
+  },
+  {
+   "cbsa": "33460",
+   "name": "Minneapolis-St. Paul-Bloomington, MN-WI",
+   "city": "Minneapolis",
+   "states": [
+    "MN",
+    "WI"
+   ],
+   "pop2025": 3790295,
+   "lat": 45.096664,
+   "lon": -93.275361
+  },
+  {
+   "cbsa": "45300",
+   "name": "Tampa-St. Petersburg-Clearwater, FL",
+   "city": "Tampa",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 3418895,
+   "lat": 28.120541,
+   "lon": -82.525188
+  },
+  {
+   "cbsa": "41740",
+   "name": "San Diego-Chula Vista-Carlsbad, CA",
+   "city": "San Diego",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 3282248,
+   "lat": 33.023604,
+   "lon": -116.776117
+  },
+  {
+   "cbsa": "19740",
+   "name": "Denver-Aurora-Centennial, CO",
+   "city": "Denver",
+   "states": [
+    "CO"
+   ],
+   "pop2025": 3092037,
+   "lat": 39.434789,
+   "lon": -104.901073
+  },
+  {
+   "cbsa": "36740",
+   "name": "Orlando-Kissimmee-Sanford, FL",
+   "city": "Orlando",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 2957672,
+   "lat": 28.434396,
+   "lon": -81.356084
+  },
+  {
+   "cbsa": "16740",
+   "name": "Charlotte-Concord-Gastonia, NC-SC",
+   "city": "Charlotte",
+   "states": [
+    "NC",
+    "SC"
+   ],
+   "pop2025": 2938830,
+   "lat": 35.166342,
+   "lon": -80.797285
+  },
+  {
+   "cbsa": "12580",
+   "name": "Baltimore-Columbia-Towson, MD",
+   "city": "Baltimore",
+   "states": [
+    "MD"
+   ],
+   "pop2025": 2857781,
+   "lat": 39.304361,
+   "lon": -76.549501
+  },
+  {
+   "cbsa": "41180",
+   "name": "St. Louis, MO-IL",
+   "city": "St. Louis",
+   "states": [
+    "MO",
+    "IL"
+   ],
+   "pop2025": 2814421,
+   "lat": 38.740211,
+   "lon": -90.345825
+  },
+  {
+   "cbsa": "41700",
+   "name": "San Antonio-New Braunfels, TX",
+   "city": "San Antonio",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 2813140,
+   "lat": 29.43306,
+   "lon": -98.606973
+  },
+  {
+   "cbsa": "12420",
+   "name": "Austin-Round Rock-San Marcos, TX",
+   "city": "Austin",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 2620945,
+   "lat": 30.249744,
+   "lon": -97.649842
+  },
+  {
+   "cbsa": "38900",
+   "name": "Portland-Vancouver-Hillsboro, OR-WA",
+   "city": "Portland",
+   "states": [
+    "OR",
+    "WA"
+   ],
+   "pop2025": 2542282,
+   "lat": 45.600622,
+   "lon": -122.484378
+  },
+  {
+   "cbsa": "40900",
+   "name": "Sacramento-Roseville-Folsom, CA",
+   "city": "Sacramento",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 2477274,
+   "lat": 38.790272,
+   "lon": -121.005643
+  },
+  {
+   "cbsa": "38300",
+   "name": "Pittsburgh, PA",
+   "city": "Pittsburgh",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 2421992,
+   "lat": 40.471332,
+   "lon": -79.863986
+  },
+  {
+   "cbsa": "29820",
+   "name": "Las Vegas-Henderson-North Las Vegas, NV",
+   "city": "Las Vegas",
+   "states": [
+    "NV"
+   ],
+   "pop2025": 2407226,
+   "lat": 36.21413,
+   "lon": -115.014398
+  },
+  {
+   "cbsa": "17140",
+   "name": "Cincinnati, OH-KY-IN",
+   "city": "Cincinnati",
+   "states": [
+    "OH",
+    "KY",
+    "IN"
+   ],
+   "pop2025": 2312858,
+   "lat": 39.078585,
+   "lon": -84.463514
+  },
+  {
+   "cbsa": "28140",
+   "name": "Kansas City, MO-KS",
+   "city": "Kansas City",
+   "states": [
+    "MO",
+    "KS"
+   ],
+   "pop2025": 2270682,
+   "lat": 38.931857,
+   "lon": -94.443841
+  },
+  {
+   "cbsa": "18140",
+   "name": "Columbus, OH",
+   "city": "Columbus",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 2242028,
+   "lat": 39.968562,
+   "lon": -82.835911
+  },
+  {
+   "cbsa": "26900",
+   "name": "Indianapolis-Carmel-Greenwood, IN",
+   "city": "Indianapolis",
+   "states": [
+    "IN"
+   ],
+   "pop2025": 2205695,
+   "lat": 39.790533,
+   "lon": -86.12426
+  },
+  {
+   "cbsa": "34980",
+   "name": "Nashville-Davidson--Murfreesboro--Franklin, TN",
+   "city": "Nashville",
+   "states": [
+    "TN"
+   ],
+   "pop2025": 2197416,
+   "lat": 36.091577,
+   "lon": -86.72298
+  },
+  {
+   "cbsa": "17410",
+   "name": "Cleveland, OH",
+   "city": "Cleveland",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 2165775,
+   "lat": 41.667548,
+   "lon": -81.43052
+  },
+  {
+   "cbsa": "41940",
+   "name": "San Jose-Sunnyvale-Santa Clara, CA",
+   "city": "San Jose",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 1984473,
+   "lat": 36.908472,
+   "lon": -121.371372
+  },
+  {
+   "cbsa": "47260",
+   "name": "Virginia Beach-Chesapeake-Norfolk, VA-NC",
+   "city": "Virginia Beach",
+   "states": [
+    "VA",
+    "NC"
+   ],
+   "pop2025": 1797213,
+   "lat": 36.837289,
+   "lon": -76.391849
+  },
+  {
+   "cbsa": "27260",
+   "name": "Jacksonville, FL",
+   "city": "Jacksonville",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 1785500,
+   "lat": 30.234184,
+   "lon": -81.756033
+  },
+  {
+   "cbsa": "39300",
+   "name": "Providence-Warwick, RI-MA",
+   "city": "Providence",
+   "states": [
+    "RI",
+    "MA"
+   ],
+   "pop2025": 1708161,
+   "lat": 41.70684,
+   "lon": -71.286687
+  },
+  {
+   "cbsa": "39580",
+   "name": "Raleigh-Cary, NC",
+   "city": "Raleigh",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 1595720,
+   "lat": 35.756746,
+   "lon": -78.460441
+  },
+  {
+   "cbsa": "33340",
+   "name": "Milwaukee-Waukesha, WI",
+   "city": "Milwaukee",
+   "states": [
+    "WI"
+   ],
+   "pop2025": 1575010,
+   "lat": 42.912643,
+   "lon": -87.862312
+  },
+  {
+   "cbsa": "36420",
+   "name": "Oklahoma City, OK",
+   "city": "Oklahoma City",
+   "states": [
+    "OK"
+   ],
+   "pop2025": 1512813,
+   "lat": 35.430968,
+   "lon": -97.506966
+  },
+  {
+   "cbsa": "31140",
+   "name": "Louisville/Jefferson County, KY-IN",
+   "city": "Louisville/Jefferson County",
+   "states": [
+    "KY",
+    "IN"
+   ],
+   "pop2025": 1402509,
+   "lat": 38.224363,
+   "lon": -85.701989
+  },
+  {
+   "cbsa": "40060",
+   "name": "Richmond, VA",
+   "city": "Richmond",
+   "states": [
+    "VA"
+   ],
+   "pop2025": 1389338,
+   "lat": 37.411324,
+   "lon": -77.441816
+  },
+  {
+   "cbsa": "32820",
+   "name": "Memphis, TN-MS-AR",
+   "city": "Memphis",
+   "states": [
+    "TN",
+    "MS",
+    "AR"
+   ],
+   "pop2025": 1341412,
+   "lat": 35.010307,
+   "lon": -89.820503
+  },
+  {
+   "cbsa": "41620",
+   "name": "Salt Lake City-Murray, UT",
+   "city": "Salt Lake City",
+   "states": [
+    "UT"
+   ],
+   "pop2025": 1308377,
+   "lat": 40.572887,
+   "lon": -112.953253
+  },
+  {
+   "cbsa": "23420",
+   "name": "Fresno, CA",
+   "city": "Fresno",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 1203383,
+   "lat": 36.879404,
+   "lon": -119.668488
+  },
+  {
+   "cbsa": "13820",
+   "name": "Birmingham, AL",
+   "city": "Birmingham",
+   "states": [
+    "AL"
+   ],
+   "pop2025": 1197766,
+   "lat": 33.462372,
+   "lon": -86.814338
+  },
+  {
+   "cbsa": "24340",
+   "name": "Grand Rapids-Wyoming-Kentwood, MI",
+   "city": "Grand Rapids",
+   "states": [
+    "MI"
+   ],
+   "pop2025": 1183645,
+   "lat": 42.979841,
+   "lon": -85.715614
+  },
+  {
+   "cbsa": "25540",
+   "name": "Hartford-West Hartford-East Hartford, CT",
+   "city": "Hartford",
+   "states": [
+    "CT"
+   ],
+   "pop2025": 1171426,
+   "lat": 41.688038,
+   "lon": -72.545112
+  },
+  {
+   "cbsa": "15380",
+   "name": "Buffalo-Cheektowaga, NY",
+   "city": "Buffalo",
+   "states": [
+    "NY"
+   ],
+   "pop2025": 1155653,
+   "lat": 43.044371,
+   "lon": -78.777335
+  },
+  {
+   "cbsa": "46060",
+   "name": "Tucson, AZ",
+   "city": "Tucson",
+   "states": [
+    "AZ"
+   ],
+   "pop2025": 1074685,
+   "lat": 32.128038,
+   "lon": -111.783657
+  },
+  {
+   "cbsa": "46140",
+   "name": "Tulsa, OK",
+   "city": "Tulsa",
+   "states": [
+    "OK"
+   ],
+   "pop2025": 1069273,
+   "lat": 36.254442,
+   "lon": -96.177298
+  },
+  {
+   "cbsa": "40380",
+   "name": "Rochester, NY",
+   "city": "Rochester",
+   "states": [
+    "NY"
+   ],
+   "pop2025": 1056149,
+   "lat": 43.184718,
+   "lon": -77.556558
+  },
+  {
+   "cbsa": "24860",
+   "name": "Greenville-Anderson-Greer, SC",
+   "city": "Greenville",
+   "states": [
+    "SC"
+   ],
+   "pop2025": 1014101,
+   "lat": 34.683709,
+   "lon": -82.413423
+  },
+  {
+   "cbsa": "36540",
+   "name": "Omaha, NE-IA",
+   "city": "Omaha",
+   "states": [
+    "NE",
+    "IA"
+   ],
+   "pop2025": 1009836,
+   "lat": 41.290459,
+   "lon": -95.99997
+  },
+  {
+   "cbsa": "46520",
+   "name": "Urban Honolulu, HI",
+   "city": "Urban Honolulu",
+   "states": [
+    "HI"
+   ],
+   "pop2025": 988703,
+   "lat": 21.461365,
+   "lon": -158.201974
+  },
+  {
+   "cbsa": "14860",
+   "name": "Bridgeport-Stamford-Danbury, CT",
+   "city": "Bridgeport",
+   "states": [
+    "CT"
+   ],
+   "pop2025": 978179,
+   "lat": 41.252442,
+   "lon": -73.393266
+  },
+  {
+   "cbsa": "35380",
+   "name": "New Orleans-Metairie, LA",
+   "city": "New Orleans",
+   "states": [
+    "LA"
+   ],
+   "pop2025": 970849,
+   "lat": 29.282447,
+   "lon": -89.576068
+  },
+  {
+   "cbsa": "28940",
+   "name": "Knoxville, TN",
+   "city": "Knoxville",
+   "states": [
+    "TN"
+   ],
+   "pop2025": 968137,
+   "lat": 36.044462,
+   "lon": -84.136114
+  },
+  {
+   "cbsa": "35840",
+   "name": "North Port-Bradenton-Sarasota, FL",
+   "city": "North Port",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 948158,
+   "lat": 27.329055,
+   "lon": -82.414533
+  },
+  {
+   "cbsa": "12540",
+   "name": "Bakersfield-Delano, CA",
+   "city": "Bakersfield",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 927068,
+   "lat": 35.346629,
+   "lon": -118.729506
+  },
+  {
+   "cbsa": "10740",
+   "name": "Albuquerque, NM",
+   "city": "Albuquerque",
+   "states": [
+    "NM"
+   ],
+   "pop2025": 925279,
+   "lat": 35.123496,
+   "lon": -106.458392
+  },
+  {
+   "cbsa": "32580",
+   "name": "McAllen-Edinburg-Mission, TX",
+   "city": "McAllen",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 921549,
+   "lat": 26.396384,
+   "lon": -98.18099
+  },
+  {
+   "cbsa": "10580",
+   "name": "Albany-Schenectady-Troy, NY",
+   "city": "Albany",
+   "states": [
+    "NY"
+   ],
+   "pop2025": 915835,
+   "lat": 42.78792,
+   "lon": -73.942348
+  },
+  {
+   "cbsa": "16700",
+   "name": "Charleston-North Charleston, SC",
+   "city": "Charleston",
+   "states": [
+    "SC"
+   ],
+   "pop2025": 889263,
+   "lat": 33.01754,
+   "lon": -80.009947
+  },
+  {
+   "cbsa": "12940",
+   "name": "Baton Rouge, LA",
+   "city": "Baton Rouge",
+   "states": [
+    "LA"
+   ],
+   "pop2025": 888699,
+   "lat": 30.515242,
+   "lon": -91.126926
+  },
+  {
+   "cbsa": "49340",
+   "name": "Worcester, MA",
+   "city": "Worcester",
+   "states": [
+    "MA"
+   ],
+   "pop2025": 888502,
+   "lat": 42.311693,
+   "lon": -71.940282
+  },
+  {
+   "cbsa": "10900",
+   "name": "Allentown-Bethlehem-Easton, PA-NJ",
+   "city": "Allentown",
+   "states": [
+    "PA",
+    "NJ"
+   ],
+   "pop2025": 887615,
+   "lat": 40.789339,
+   "lon": -75.398158
+  },
+  {
+   "cbsa": "21340",
+   "name": "El Paso, TX",
+   "city": "El Paso",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 881291,
+   "lat": 31.527394,
+   "lon": -105.521333
+  },
+  {
+   "cbsa": "17900",
+   "name": "Columbia, SC",
+   "city": "Columbia",
+   "states": [
+    "SC"
+   ],
+   "pop2025": 879918,
+   "lat": 34.077585,
+   "lon": -81.037845
+  },
+  {
+   "cbsa": "15980",
+   "name": "Cape Coral-Fort Myers, FL",
+   "city": "Cape Coral",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 875607,
+   "lat": 26.563273,
+   "lon": -81.984182
+  },
+  {
+   "cbsa": "29460",
+   "name": "Lakeland-Winter Haven, FL",
+   "city": "Lakeland",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 874790,
+   "lat": 27.953685,
+   "lon": -81.693493
+  },
+  {
+   "cbsa": "14260",
+   "name": "Boise City, ID",
+   "city": "Boise City",
+   "states": [
+    "ID"
+   ],
+   "pop2025": 864243,
+   "lat": 43.006648,
+   "lon": -116.141909
+  },
+  {
+   "cbsa": "37100",
+   "name": "Oxnard-Thousand Oaks-Ventura, CA",
+   "city": "Oxnard",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 830851,
+   "lat": 34.358748,
+   "lon": -119.133145
+  },
+  {
+   "cbsa": "19430",
+   "name": "Dayton-Kettering-Beavercreek, OH",
+   "city": "Dayton",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 826554,
+   "lat": 39.829746,
+   "lon": -84.140992
+  },
+  {
+   "cbsa": "44700",
+   "name": "Stockton-Lodi, CA",
+   "city": "Stockton",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 823815,
+   "lat": 37.934982,
+   "lon": -121.272244
+  },
+  {
+   "cbsa": "24660",
+   "name": "Greensboro-High Point, NC",
+   "city": "Greensboro",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 805945,
+   "lat": 36.025204,
+   "lon": -79.792633
+  },
+  {
+   "cbsa": "17820",
+   "name": "Colorado Springs, CO",
+   "city": "Colorado Springs",
+   "states": [
+    "CO"
+   ],
+   "pop2025": 781796,
+   "lat": 38.845507,
+   "lon": -104.638728
+  },
+  {
+   "cbsa": "30780",
+   "name": "Little Rock-North Little Rock-Conway, AR",
+   "city": "Little Rock",
+   "states": [
+    "AR"
+   ],
+   "pop2025": 777607,
+   "lat": 34.755773,
+   "lon": -92.400589
+  },
+  {
+   "cbsa": "39340",
+   "name": "Provo-Orem-Lehi, UT",
+   "city": "Provo",
+   "states": [
+    "UT"
+   ],
+   "pop2025": 773426,
+   "lat": 39.872067,
+   "lon": -112.359059
+  },
+  {
+   "cbsa": "19780",
+   "name": "Des Moines-West Des Moines, IA",
+   "city": "Des Moines",
+   "states": [
+    "IA"
+   ],
+   "pop2025": 758539,
+   "lat": 41.57705,
+   "lon": -93.759712
+  },
+  {
+   "cbsa": "19660",
+   "name": "Deltona-Daytona Beach-Ormond Beach, FL",
+   "city": "Deltona",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 746933,
+   "lat": 29.1789,
+   "lon": -81.189023
+  },
+  {
+   "cbsa": "28880",
+   "name": "Kiryas Joel-Poughkeepsie-Newburgh, NY",
+   "city": "Kiryas Joel",
+   "states": [
+    "NY"
+   ],
+   "pop2025": 718377,
+   "lat": 41.575274,
+   "lon": -74.033873
+  },
+  {
+   "cbsa": "49180",
+   "name": "Winston-Salem, NC",
+   "city": "Winston",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 712206,
+   "lat": 36.078852,
+   "lon": -80.345064
+  },
+  {
+   "cbsa": "31540",
+   "name": "Madison, WI",
+   "city": "Madison",
+   "states": [
+    "WI"
+   ],
+   "pop2025": 709685,
+   "lat": 43.083846,
+   "lon": -89.597745
+  },
+  {
+   "cbsa": "10420",
+   "name": "Akron, OH",
+   "city": "Akron",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 701780,
+   "lat": 41.146639,
+   "lon": -81.35011
+  },
+  {
+   "cbsa": "36260",
+   "name": "Ogden, UT",
+   "city": "Ogden",
+   "states": [
+    "UT"
+   ],
+   "pop2025": 672784,
+   "lat": 41.124342,
+   "lon": -111.866933
+  },
+  {
+   "cbsa": "37340",
+   "name": "Palm Bay-Melbourne-Titusville, FL",
+   "city": "Palm Bay",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 663982,
+   "lat": 28.298311,
+   "lon": -80.700333
+  },
+  {
+   "cbsa": "48620",
+   "name": "Wichita, KS",
+   "city": "Wichita",
+   "states": [
+    "KS"
+   ],
+   "pop2025": 663809,
+   "lat": 37.637896,
+   "lon": -97.246287
+  },
+  {
+   "cbsa": "45060",
+   "name": "Syracuse, NY",
+   "city": "Syracuse",
+   "states": [
+    "NY"
+   ],
+   "pop2025": 652273,
+   "lat": 43.006516,
+   "lon": -76.196134
+  },
+  {
+   "cbsa": "12260",
+   "name": "Augusta-Richmond County, GA-SC",
+   "city": "Augusta",
+   "states": [
+    "GA",
+    "SC"
+   ],
+   "pop2025": 641231,
+   "lat": 33.460371,
+   "lon": -81.982833
+  },
+  {
+   "cbsa": "20500",
+   "name": "Durham-Chapel Hill, NC",
+   "city": "Durham",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 625485,
+   "lat": 35.995536,
+   "lon": -79.09699
+  },
+  {
+   "cbsa": "22220",
+   "name": "Fayetteville-Springdale-Rogers, AR",
+   "city": "Fayetteville",
+   "states": [
+    "AR"
+   ],
+   "pop2025": 622177,
+   "lat": 36.116394,
+   "lon": -94.079545
+  },
+  {
+   "cbsa": "25420",
+   "name": "Harrisburg-Carlisle, PA",
+   "city": "Harrisburg",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 617427,
+   "lat": 40.335915,
+   "lon": -77.05049
+  },
+  {
+   "cbsa": "27140",
+   "name": "Jackson, MS",
+   "city": "Jackson",
+   "states": [
+    "MS"
+   ],
+   "pop2025": 609847,
+   "lat": 32.426311,
+   "lon": -90.136422
+  },
+  {
+   "cbsa": "44060",
+   "name": "Spokane-Spokane Valley, WA",
+   "city": "Spokane",
+   "states": [
+    "WA"
+   ],
+   "pop2025": 608012,
+   "lat": 48.091618,
+   "lon": -117.663472
+  },
+  {
+   "cbsa": "45780",
+   "name": "Toledo, OH",
+   "city": "Toledo",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 599376,
+   "lat": 41.544357,
+   "lon": -83.690777
+  },
+  {
+   "cbsa": "16860",
+   "name": "Chattanooga, TN-GA",
+   "city": "Chattanooga",
+   "states": [
+    "TN",
+    "GA"
+   ],
+   "pop2025": 594530,
+   "lat": 35.049361,
+   "lon": -85.361158
+  },
+  {
+   "cbsa": "35300",
+   "name": "New Haven, CT",
+   "city": "New Haven",
+   "states": [
+    "CT"
+   ],
+   "pop2025": 578741,
+   "lat": 41.290167,
+   "lon": -72.837024
+  },
+  {
+   "cbsa": "39900",
+   "name": "Reno, NV",
+   "city": "Reno",
+   "states": [
+    "NV"
+   ],
+   "pop2025": 578734,
+   "lat": 40.251057,
+   "lon": -119.555507
+  },
+  {
+   "cbsa": "38860",
+   "name": "Portland-South Portland, ME",
+   "city": "Portland",
+   "states": [
+    "ME"
+   ],
+   "pop2025": 577635,
+   "lat": 43.651417,
+   "lon": -70.418375
+  },
+  {
+   "cbsa": "42540",
+   "name": "Scranton--Wilkes-Barre, PA",
+   "city": "Scranton",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 574418,
+   "lat": 41.322881,
+   "lon": -75.898188
+  },
+  {
+   "cbsa": "38940",
+   "name": "Port St. Lucie, FL",
+   "city": "Port St. Lucie",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 568721,
+   "lat": 27.228046,
+   "lon": -80.425388
+  },
+  {
+   "cbsa": "29540",
+   "name": "Lancaster, PA",
+   "city": "Lancaster",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 563159,
+   "lat": 40.041992,
+   "lon": -76.250198
+  },
+  {
+   "cbsa": "33700",
+   "name": "Modesto, CA",
+   "city": "Modesto",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 557719,
+   "lat": 37.562316,
+   "lon": -121.002831
+  },
+  {
+   "cbsa": "26620",
+   "name": "Huntsville, AL",
+   "city": "Huntsville",
+   "states": [
+    "AL"
+   ],
+   "pop2025": 556444,
+   "lat": 34.783262,
+   "lon": -86.734871
+  },
+  {
+   "cbsa": "37860",
+   "name": "Pensacola-Ferry Pass-Brent, FL",
+   "city": "Pensacola",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 544949,
+   "lat": 30.608557,
+   "lon": -87.158547
+  },
+  {
+   "cbsa": "30460",
+   "name": "Lexington-Fayette, KY",
+   "city": "Lexington",
+   "states": [
+    "KY"
+   ],
+   "pop2025": 535174,
+   "lat": 38.102876,
+   "lon": -84.438545
+  },
+  {
+   "cbsa": "28660",
+   "name": "Killeen-Temple, TX",
+   "city": "Killeen",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 511497,
+   "lat": 31.20273,
+   "lon": -97.789638
+  },
+  {
+   "cbsa": "44180",
+   "name": "Springfield, MO",
+   "city": "Springfield",
+   "states": [
+    "MO"
+   ],
+   "pop2025": 500694,
+   "lat": 37.36087,
+   "lon": -93.180262
+  },
+  {
+   "cbsa": "48900",
+   "name": "Wilmington, NC",
+   "city": "Wilmington",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 492772,
+   "lat": 34.253691,
+   "lon": -78.041674
+  },
+  {
+   "cbsa": "42220",
+   "name": "Santa Rosa-Petaluma, CA",
+   "city": "Santa Rosa",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 486444,
+   "lat": 38.525182,
+   "lon": -122.92611
+  },
+  {
+   "cbsa": "47300",
+   "name": "Visalia, CA",
+   "city": "Visalia",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 485146,
+   "lat": 36.228834,
+   "lon": -118.781055
+  },
+  {
+   "cbsa": "29620",
+   "name": "Lansing-East Lansing, MI",
+   "city": "Lansing",
+   "states": [
+    "MI"
+   ],
+   "pop2025": 479722,
+   "lat": 42.713659,
+   "lon": -84.605372
+  },
+  {
+   "cbsa": "49620",
+   "name": "York-Hanover, PA",
+   "city": "York",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 473197,
+   "lat": 39.921751,
+   "lon": -76.728889
+  },
+  {
+   "cbsa": "23060",
+   "name": "Fort Wayne, IN",
+   "city": "Fort Wayne",
+   "states": [
+    "IN"
+   ],
+   "pop2025": 466258,
+   "lat": 41.006999,
+   "lon": -85.216424
+  },
+  {
+   "cbsa": "44140",
+   "name": "Springfield, MA",
+   "city": "Springfield",
+   "states": [
+    "MA"
+   ],
+   "pop2025": 464338,
+   "lat": 42.136198,
+   "lon": -72.635648
+  },
+  {
+   "cbsa": "47930",
+   "name": "Waterbury-Shelton, CT",
+   "city": "Waterbury",
+   "states": [
+    "CT"
+   ],
+   "pop2025": 463349,
+   "lat": 41.518931,
+   "lon": -73.087906
+  },
+  {
+   "cbsa": "46700",
+   "name": "Vallejo, CA",
+   "city": "Vallejo",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 455376,
+   "lat": 38.267226,
+   "lon": -121.939594
+  },
+  {
+   "cbsa": "18580",
+   "name": "Corpus Christi, TX",
+   "city": "Corpus Christi",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 451191,
+   "lat": 27.894817,
+   "lon": -97.401668
+  },
+  {
+   "cbsa": "41420",
+   "name": "Salem, OR",
+   "city": "Salem",
+   "states": [
+    "OR"
+   ],
+   "pop2025": 445814,
+   "lat": 44.903385,
+   "lon": -122.901757
+  },
+  {
+   "cbsa": "36100",
+   "name": "Ocala, FL",
+   "city": "Ocala",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 442660,
+   "lat": 29.202805,
+   "lon": -82.0431
+  },
+  {
+   "cbsa": "42200",
+   "name": "Santa Maria-Santa Barbara, CA",
+   "city": "Santa Maria",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 442065,
+   "lat": 34.536677,
+   "lon": -120.038364
+  },
+  {
+   "cbsa": "39740",
+   "name": "Reading, PA",
+   "city": "Reading",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 440072,
+   "lat": 40.413957,
+   "lon": -75.92686
+  },
+  {
+   "cbsa": "42340",
+   "name": "Savannah, GA",
+   "city": "Savannah",
+   "states": [
+    "GA"
+   ],
+   "pop2025": 438314,
+   "lat": 32.109153,
+   "lon": -81.273107
+  },
+  {
+   "cbsa": "15180",
+   "name": "Brownsville-Harlingen, TX",
+   "city": "Brownsville",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 433946,
+   "lat": 26.102923,
+   "lon": -97.478958
+  },
+  {
+   "cbsa": "41500",
+   "name": "Salinas, CA",
+   "city": "Salinas",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 433729,
+   "lat": 36.240104,
+   "lon": -121.315578
+  },
+  {
+   "cbsa": "31700",
+   "name": "Manchester-Nashua, NH",
+   "city": "Manchester",
+   "states": [
+    "NH"
+   ],
+   "pop2025": 433415,
+   "lat": 42.911532,
+   "lon": -71.723055
+  },
+  {
+   "cbsa": "25060",
+   "name": "Gulfport-Biloxi, MS",
+   "city": "Gulfport",
+   "states": [
+    "MS"
+   ],
+   "pop2025": 431329,
+   "lat": 30.480153,
+   "lon": -88.999297
+  },
+  {
+   "cbsa": "34820",
+   "name": "Myrtle Beach-Conway-North Myrtle Beach, SC",
+   "city": "Myrtle Beach",
+   "states": [
+    "SC"
+   ],
+   "pop2025": 427551,
+   "lat": 33.909269,
+   "lon": -78.976675
+  },
+  {
+   "cbsa": "29180",
+   "name": "Lafayette, LA",
+   "city": "Lafayette",
+   "states": [
+    "LA"
+   ],
+   "pop2025": 423758,
+   "lat": 30.012961,
+   "lon": -92.136552
+  },
+  {
+   "cbsa": "49660",
+   "name": "Youngstown-Warren, OH",
+   "city": "Youngstown",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 423678,
+   "lat": 41.195092,
+   "lon": -80.76508
+  },
+  {
+   "cbsa": "11700",
+   "name": "Asheville, NC",
+   "city": "Asheville",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 422345,
+   "lat": 35.61634,
+   "lon": -82.570683
+  },
+  {
+   "cbsa": "34940",
+   "name": "Naples-Marco Island, FL",
+   "city": "Naples",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 417131,
+   "lat": 26.118786,
+   "lon": -81.400955
+  },
+  {
+   "cbsa": "33660",
+   "name": "Mobile, AL",
+   "city": "Mobile",
+   "states": [
+    "AL"
+   ],
+   "pop2025": 411658,
+   "lat": 30.684572,
+   "lon": -88.196568
+  },
+  {
+   "cbsa": "43900",
+   "name": "Spartanburg, SC",
+   "city": "Spartanburg",
+   "states": [
+    "SC"
+   ],
+   "pop2025": 407656,
+   "lat": 34.83462,
+   "lon": -81.842401
+  },
+  {
+   "cbsa": "11260",
+   "name": "Anchorage, AK",
+   "city": "Anchorage",
+   "states": [
+    "AK"
+   ],
+   "pop2025": 405821,
+   "lat": 62.212784,
+   "lon": -149.678222
+  },
+  {
+   "cbsa": "22420",
+   "name": "Flint, MI",
+   "city": "Flint",
+   "states": [
+    "MI"
+   ],
+   "pop2025": 401093,
+   "lat": 43.021077,
+   "lon": -83.706372
+  },
+  {
+   "cbsa": "15940",
+   "name": "Canton-Massillon, OH",
+   "city": "Canton",
+   "states": [
+    "OH"
+   ],
+   "pop2025": 400246,
+   "lat": 40.711051,
+   "lon": -81.261468
+  },
+  {
+   "cbsa": "13140",
+   "name": "Beaumont-Port Arthur, TX",
+   "city": "Beaumont",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 399310,
+   "lat": 30.075928,
+   "lon": -94.202705
+  },
+  {
+   "cbsa": "45940",
+   "name": "Trenton-Princeton, NJ",
+   "city": "Trenton",
+   "states": [
+    "NJ"
+   ],
+   "pop2025": 399289,
+   "lat": 40.282503,
+   "lon": -74.703724
+  },
+  {
+   "cbsa": "45220",
+   "name": "Tallahassee, FL",
+   "city": "Tallahassee",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 397442,
+   "lat": 30.346366,
+   "lon": -84.267001
+  },
+  {
+   "cbsa": "22180",
+   "name": "Fayetteville, NC",
+   "city": "Fayetteville",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 395412,
+   "lat": 35.037956,
+   "lon": -78.982209
+  },
+  {
+   "cbsa": "33860",
+   "name": "Montgomery, AL",
+   "city": "Montgomery",
+   "states": [
+    "AL"
+   ],
+   "pop2025": 388747,
+   "lat": 32.365631,
+   "lon": -86.404585
+  },
+  {
+   "cbsa": "43340",
+   "name": "Shreveport-Bossier City, LA",
+   "city": "Shreveport",
+   "states": [
+    "LA"
+   ],
+   "pop2025": 383474,
+   "lat": 32.437682,
+   "lon": -93.744884
+  },
+  {
+   "cbsa": "21660",
+   "name": "Eugene-Springfield, OR",
+   "city": "Eugene",
+   "states": [
+    "OR"
+   ],
+   "pop2025": 381584,
+   "lat": 43.928334,
+   "lon": -122.897581
+  },
+  {
+   "cbsa": "19340",
+   "name": "Davenport-Moline-Rock Island, IA-IL",
+   "city": "Davenport",
+   "states": [
+    "IA",
+    "IL"
+   ],
+   "pop2025": 380452,
+   "lat": 41.39168,
+   "lon": -90.460076
+  },
+  {
+   "cbsa": "24540",
+   "name": "Greeley, CO",
+   "city": "Greeley",
+   "states": [
+    "CO"
+   ],
+   "pop2025": 378426,
+   "lat": 40.555961,
+   "lon": -104.383666
+  },
+  {
+   "cbsa": "22660",
+   "name": "Fort Collins-Loveland, CO",
+   "city": "Fort Collins",
+   "states": [
+    "CO"
+   ],
+   "pop2025": 377292,
+   "lat": 40.658093,
+   "lon": -105.486764
+  },
+  {
+   "cbsa": "25860",
+   "name": "Hickory-Lenoir-Morganton, NC",
+   "city": "Hickory",
+   "states": [
+    "NC"
+   ],
+   "pop2025": 376890,
+   "lat": 35.814295,
+   "lon": -81.456584
+  },
+  {
+   "cbsa": "12100",
+   "name": "Atlantic City-Hammonton, NJ",
+   "city": "Atlantic City",
+   "states": [
+    "NJ"
+   ],
+   "pop2025": 372047,
+   "lat": 39.286186,
+   "lon": -74.738311
+  },
+  {
+   "cbsa": "11460",
+   "name": "Ann Arbor, MI",
+   "city": "Ann Arbor",
+   "states": [
+    "MI"
+   ],
+   "pop2025": 370214,
+   "lat": 42.252217,
+   "lon": -83.843423
+  },
+  {
+   "cbsa": "31180",
+   "name": "Lubbock, TX",
+   "city": "Lubbock",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 368431,
+   "lat": 33.469794,
+   "lon": -101.880412
+  },
+  {
+   "cbsa": "26580",
+   "name": "Huntington-Ashland, WV-KY-OH",
+   "city": "Huntington",
+   "states": [
+    "WV",
+    "KY",
+    "OH"
+   ],
+   "pop2025": 365965,
+   "lat": 38.357487,
+   "lon": -82.579994
+  },
+  {
+   "cbsa": "37900",
+   "name": "Peoria, IL",
+   "city": "Peoria",
+   "states": [
+    "IL"
+   ],
+   "pop2025": 363505,
+   "lat": 40.788069,
+   "lon": -89.514639
+  },
+  {
+   "cbsa": "23540",
+   "name": "Gainesville, FL",
+   "city": "Gainesville",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 359036,
+   "lat": 29.453355,
+   "lon": -82.666257
+  },
+  {
+   "cbsa": "30700",
+   "name": "Lincoln, NE",
+   "city": "Lincoln",
+   "states": [
+    "NE"
+   ],
+   "pop2025": 352081,
+   "lat": 40.817429,
+   "lon": -96.868801
+  },
+  {
+   "cbsa": "17300",
+   "name": "Clarksville, TN-KY",
+   "city": "Clarksville",
+   "states": [
+    "TN",
+    "KY"
+   ],
+   "pop2025": 349001,
+   "lat": 36.69571,
+   "lon": -87.624307
+  },
+  {
+   "cbsa": "40420",
+   "name": "Rockford, IL",
+   "city": "Rockford",
+   "states": [
+    "IL"
+   ],
+   "pop2025": 337242,
+   "lat": 42.331183,
+   "lon": -89.042914
+  },
+  {
+   "cbsa": "24580",
+   "name": "Green Bay, WI",
+   "city": "Green Bay",
+   "states": [
+    "WI"
+   ],
+   "pop2025": 336756,
+   "lat": 44.474024,
+   "lon": -87.99613
+  },
+  {
+   "cbsa": "14500",
+   "name": "Boulder, CO",
+   "city": "Boulder",
+   "states": [
+    "CO"
+   ],
+   "pop2025": 328560,
+   "lat": 40.094966,
+   "lon": -105.397702
+  },
+  {
+   "cbsa": "17980",
+   "name": "Columbus, GA-AL",
+   "city": "Columbus",
+   "states": [
+    "GA",
+    "AL"
+   ],
+   "pop2025": 324830,
+   "lat": 32.419377,
+   "lon": -84.843709
+  },
+  {
+   "cbsa": "43780",
+   "name": "South Bend-Mishawaka, IN-MI",
+   "city": "South Bend",
+   "states": [
+    "IN",
+    "MI"
+   ],
+   "pop2025": 324538,
+   "lat": 41.774981,
+   "lon": -86.123014
+  },
+  {
+   "cbsa": "28420",
+   "name": "Kennewick-Richland, WA",
+   "city": "Kennewick",
+   "states": [
+    "WA"
+   ],
+   "pop2025": 324334,
+   "lat": 46.364155,
+   "lon": -119.254927
+  },
+  {
+   "cbsa": "40220",
+   "name": "Roanoke, VA",
+   "city": "Roanoke",
+   "states": [
+    "VA"
+   ],
+   "pop2025": 316547,
+   "lat": 37.286226,
+   "lon": -79.946935
+  },
+  {
+   "cbsa": "25180",
+   "name": "Hagerstown-Martinsburg, MD-WV",
+   "city": "Hagerstown",
+   "states": [
+    "MD",
+    "WV"
+   ],
+   "pop2025": 315280,
+   "lat": 39.554433,
+   "lon": -77.984594
+  },
+  {
+   "cbsa": "18880",
+   "name": "Crestview-Fort Walton Beach-Destin, FL",
+   "city": "Crestview",
+   "states": [
+    "FL"
+   ],
+   "pop2025": 315098,
+   "lat": 30.594941,
+   "lon": -86.358164
+  },
+  {
+   "cbsa": "28700",
+   "name": "Kingsport-Bristol, TN-VA",
+   "city": "Kingsport",
+   "states": [
+    "TN",
+    "VA"
+   ],
+   "pop2025": 314834,
+   "lat": 36.604161,
+   "lon": -82.440145
+  },
+  {
+   "cbsa": "43620",
+   "name": "Sioux Falls, SD-MN",
+   "city": "Sioux Falls",
+   "states": [
+    "SD",
+    "MN"
+   ],
+   "pop2025": 314638,
+   "lat": 43.525658,
+   "lon": -96.875416
+  },
+  {
+   "cbsa": "47380",
+   "name": "Waco, TX",
+   "city": "Waco",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 308807,
+   "lat": 31.5921,
+   "lon": -97.286018
+  },
+  {
+   "cbsa": "36500",
+   "name": "Olympia-Lacey-Tumwater, WA",
+   "city": "Olympia",
+   "states": [
+    "WA"
+   ],
+   "pop2025": 304261,
+   "lat": 46.935822,
+   "lon": -122.830152
+  },
+  {
+   "cbsa": "30980",
+   "name": "Longview, TX",
+   "city": "Longview",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 297315,
+   "lat": 32.431646,
+   "lon": -94.684833
+  },
+  {
+   "cbsa": "32900",
+   "name": "Merced, CA",
+   "city": "Merced",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 297260,
+   "lat": 37.194806,
+   "lon": -120.722802
+  },
+  {
+   "cbsa": "17780",
+   "name": "College Station-Bryan, TX",
+   "city": "College Station",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 287476,
+   "lat": 30.754392,
+   "lon": -96.488537
+  },
+  {
+   "cbsa": "46540",
+   "name": "Utica-Rome, NY",
+   "city": "Utica",
+   "states": [
+    "NY"
+   ],
+   "pop2025": 285611,
+   "lat": 43.33228,
+   "lon": -75.173189
+  },
+  {
+   "cbsa": "35980",
+   "name": "Norwich-New London-Willimantic, CT",
+   "city": "Norwich",
+   "states": [
+    "CT"
+   ],
+   "pop2025": 284015,
+   "lat": 41.484769,
+   "lon": -72.101666
+  },
+  {
+   "cbsa": "14740",
+   "name": "Bremerton-Silverdale-Port Orchard, WA",
+   "city": "Bremerton",
+   "states": [
+    "WA"
+   ],
+   "pop2025": 283374,
+   "lat": 47.639595,
+   "lon": -122.649634
+  },
+  {
+   "cbsa": "42020",
+   "name": "San Luis Obispo-Paso Robles, CA",
+   "city": "San Luis Obispo",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 282367,
+   "lat": 35.388189,
+   "lon": -120.448897
+  },
+  {
+   "cbsa": "46220",
+   "name": "Tuscaloosa, AL",
+   "city": "Tuscaloosa",
+   "states": [
+    "AL"
+   ],
+   "pop2025": 281850,
+   "lat": 33.097877,
+   "lon": -87.799147
+  },
+  {
+   "cbsa": "29700",
+   "name": "Laredo, TX",
+   "city": "Laredo",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 281224,
+   "lat": 27.760799,
+   "lon": -99.340752
+  },
+  {
+   "cbsa": "20260",
+   "name": "Duluth, MN-WI",
+   "city": "Duluth",
+   "states": [
+    "MN",
+    "WI"
+   ],
+   "pop2025": 281219,
+   "lat": 47.329703,
+   "lon": -92.37627
+  },
+  {
+   "cbsa": "16300",
+   "name": "Cedar Rapids, IA",
+   "city": "Cedar Rapids",
+   "states": [
+    "IA"
+   ],
+   "pop2025": 279285,
+   "lat": 42.086289,
+   "lon": -91.631095
+  },
+  {
+   "cbsa": "43640",
+   "name": "Slidell-Mandeville-Covington, LA",
+   "city": "Slidell",
+   "states": [
+    "LA"
+   ],
+   "pop2025": 279108,
+   "lat": 30.410022,
+   "lon": -89.951962
+  },
+  {
+   "cbsa": "11100",
+   "name": "Amarillo, TX",
+   "city": "Amarillo",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 276235,
+   "lat": 35.247999,
+   "lon": -101.90867
+  },
+  {
+   "cbsa": "21780",
+   "name": "Evansville, IN",
+   "city": "Evansville",
+   "states": [
+    "IN"
+   ],
+   "pop2025": 273786,
+   "lat": 38.049142,
+   "lon": -87.584519
+  },
+  {
+   "cbsa": "22020",
+   "name": "Fargo, ND-MN",
+   "city": "Fargo",
+   "states": [
+    "ND",
+    "MN"
+   ],
+   "pop2025": 269528,
+   "lat": 46.914859,
+   "lon": -96.960183
+  },
+  {
+   "cbsa": "31340",
+   "name": "Lynchburg, VA",
+   "city": "Lynchburg",
+   "states": [
+    "VA"
+   ],
+   "pop2025": 269169,
+   "lat": 37.364926,
+   "lon": -79.216689
+  },
+  {
+   "cbsa": "19300",
+   "name": "Daphne-Fairhope-Foley, AL",
+   "city": "Daphne",
+   "states": [
+    "AL"
+   ],
+   "pop2025": 267761,
+   "lat": 30.659218,
+   "lon": -87.746067
+  },
+  {
+   "cbsa": "13460",
+   "name": "Bend, OR",
+   "city": "Bend",
+   "states": [
+    "OR"
+   ],
+   "pop2025": 266376,
+   "lat": 44.153837,
+   "lon": -120.887072
+  },
+  {
+   "cbsa": "21500",
+   "name": "Erie, PA",
+   "city": "Erie",
+   "states": [
+    "PA"
+   ],
+   "pop2025": 265832,
+   "lat": 42.117952,
+   "lon": -80.096386
+  },
+  {
+   "cbsa": "28020",
+   "name": "Kalamazoo-Portage, MI",
+   "city": "Kalamazoo",
+   "states": [
+    "MI"
+   ],
+   "pop2025": 263795,
+   "lat": 42.246266,
+   "lon": -85.532854
+  },
+  {
+   "cbsa": "49420",
+   "name": "Yakima, WA",
+   "city": "Yakima",
+   "states": [
+    "WA"
+   ],
+   "pop2025": 259185,
+   "lat": 46.456558,
+   "lon": -120.740145
+  },
+  {
+   "cbsa": "42100",
+   "name": "Santa Cruz-Watsonville, CA",
+   "city": "Santa Cruz",
+   "states": [
+    "CA"
+   ],
+   "pop2025": 258852,
+   "lat": 37.012347,
+   "lon": -122.007789
+  },
+  {
+   "cbsa": "39150",
+   "name": "Prescott Valley-Prescott, AZ",
+   "city": "Prescott Valley",
+   "states": [
+    "AZ"
+   ],
+   "pop2025": 252552,
+   "lat": 34.631071,
+   "lon": -112.577225
+  },
+  {
+   "cbsa": "46340",
+   "name": "Tyler, TX",
+   "city": "Tyler",
+   "states": [
+    "TX"
+   ],
+   "pop2025": 252549,
+   "lat": 32.375105,
+   "lon": -95.268939
+  }
+ ]
+}
