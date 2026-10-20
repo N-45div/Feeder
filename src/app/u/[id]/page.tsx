@@ -1,0 +1,80 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import feeder from "../../../../data/eval/feeder.json";
+import { getDesk, listUniversities, stateAbbr } from "@/lib/data/desk";
+import { fmt, Pennant } from "../../ui";
+import { RoadTrip } from "./road-trip";
+import { StateBoard } from "./state-board";
+
+/** Every university's desk is prerendered; an unknown id renders on request and 404s. */
+export async function generateStaticParams() {
+  return (await listUniversities()).map((u) => ({ id: String(u.unitid) }));
+}
+
+export async function generateMetadata({ params }: PageProps<"/u/[id]">) {
+  const desk = await getDesk(Number((await params).id));
+  return { title: desk ? `${desk.university.qlooName} · Feeder` : "Not found · Feeder" };
+}
+
+export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
+  const id = Number((await params).id);
+  const desk = Number.isInteger(id) ? await getDesk(id) : null;
+  if (!desk) notFound();
+  const { university: u, board, metros } = desk;
+  const school = u.qlooName;
+  const r = feeder.fall2022;
+
+  return (
+    <div className="space-y-6">
+      <section aria-label="University" className="flex flex-wrap items-center justify-between gap-5">
+        <div className="min-w-0">
+          <Link href="/" className="text-sm font-semibold text-muted hover:text-ink">← All universities</Link>
+          <div className="pennant rise mt-2 bg-ink py-4 pl-6 pr-16 text-white sm:pr-20">
+            <p className="text-xs font-bold tracking-[0.16em] text-[#ffb89c]">RECRUITING DESK</p>
+            <h1 className="mt-1 font-varsity text-3xl leading-none tracking-wide sm:text-[44px]">{school.toUpperCase()}</h1>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 text-sm font-semibold">
+          <span className="rounded-full border-[1.5px] border-ink bg-surface px-3 py-1.5">{u.city}, {u.state}{u.control ? ` · ${u.control}` : ""}</span>
+          <span className="rounded-full border-[1.5px] border-ink bg-surface px-3 py-1.5"><span className="figure">{fmt(u.firstTime2022)}</span> first-time freshmen, Fall 2022</span>
+          <span className="rounded-full border-[1.5px] border-ink bg-pennant px-3 py-1.5"><span className="figure">{Math.round(u.outShare2022 * 100)}%</span> from out of state</span>
+        </div>
+      </section>
+
+      <div className="flex flex-wrap items-start gap-6">
+        <div className="flex min-w-0 flex-[999_1_640px] flex-col gap-6">
+          <StateBoard board={board} home={stateAbbr(u.state)} homeName={u.state} homeFreshmen={u.home2022} school={school} />
+          <RoadTrip unitid={u.unitid} metros={metros} school={school} />
+          <section id="evidence" aria-labelledby="ev-h">
+            <h2 id="ev-h" className="text-2xl font-bold">How sure is this?</h2>
+            <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
+              <Tile value={`+${r.partial_spearman_vs_gravity_residual.qloo.mean.toFixed(2)}`} text={`Qloo pull tracks what population and distance can't explain, across ${r.universities} universities, in 2022 and again in 2020. A placebo scores ${r.partial_spearman_vs_gravity_residual.placebo.mean.toFixed(2)}.`} />
+              <Tile value={`+${r.partial_spearman_vs_gravity_residual.assistant.mean.toFixed(2)}`} text="An AI assistant asked the same question scores about the same. Qloo gets there from measured taste, and goes down to metros and high schools." />
+              <Tile value={r.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} text={`For ranking every state, the assistant predicts better (${r.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} against ${r.out_of_sample_spearman["gravity+qloo"].mean.toFixed(2)} with Qloo). Feeder says so.`} />
+            </div>
+            <Link href="/evidence" className="mt-3 inline-block text-sm font-bold text-pennant-ink hover:underline">All the evidence and its limits</Link>
+          </section>
+        </div>
+        <aside className="card min-w-0 flex-[1_1_330px] overflow-hidden lg:sticky lg:top-6 lg:max-w-[400px]">
+          <div className="flex items-center gap-3 border-b-[1.5px] border-ink bg-pennant px-4 py-3.5">
+            <Pennant className="h-8 w-8" fill="#ffffff" />
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.16em]">TRAVEL DESK</p>
+              <h2 className="text-[22px] font-bold leading-tight">Ask Feeder</h2>
+            </div>
+          </div>
+          <p className="p-4 text-sm text-muted">The agent arrives next: it reads this board, plans recruiter trips and drafts outreach from the briefs.</p>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+function Tile({ value, text }: { value: string; text: string }) {
+  return (
+    <div className="rounded-[18px] bg-ink p-4 text-white">
+      <p className="figure text-[32px] font-bold text-[#ffb89c]">{value}</p>
+      <p className="mt-1.5 text-sm leading-snug">{text}</p>
+    </div>
+  );
+}
