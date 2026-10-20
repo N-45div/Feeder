@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import feeder from "../../../../data/eval/feeder.json";
 import { getDesk, listUniversities, stateAbbr } from "@/lib/data/desk";
-import { fmt, Pennant } from "../../ui";
+import { fmt } from "../../ui";
+import { AskFeeder } from "./ask-feeder";
 import { RoadTrip } from "./road-trip";
 import { StateBoard } from "./state-board";
 
@@ -55,16 +56,16 @@ export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
             <Link href="/evidence" className="mt-3 inline-block text-sm font-bold text-pennant-ink hover:underline">All the evidence and its limits</Link>
           </section>
         </div>
-        <aside className="card min-w-0 flex-[1_1_330px] overflow-hidden lg:sticky lg:top-6 lg:max-w-[400px]">
-          <div className="flex items-center gap-3 border-b-[1.5px] border-ink bg-pennant px-4 py-3.5">
-            <Pennant className="h-8 w-8" fill="#ffffff" />
-            <div>
-              <p className="text-[11px] font-bold tracking-[0.16em]">TRAVEL DESK</p>
-              <h2 className="text-[22px] font-bold leading-tight">Ask Feeder</h2>
-            </div>
-          </div>
-          <p className="p-4 text-sm text-muted">The agent arrives next: it reads this board, plans recruiter trips and drafts outreach from the briefs.</p>
-        </aside>
+        <AskFeeder
+          unitid={u.unitid}
+          name={school}
+          suggestions={[
+            "Where are we under-recruiting?",
+            "Plan two recruiters' fall trips, three weeks each",
+            metros[0] ? `Which ${metros[0].city} high schools should we visit?` : "Which metros should we visit first?",
+          ]}
+        />
+        <div className="h-20 w-full lg:hidden" aria-hidden="true" />
       </div>
     </div>
   );
