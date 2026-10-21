@@ -70,3 +70,10 @@ create table if not exists usage_counts (
   count integer not null default 0,
   primary key (key, day)
 );
+
+-- The audience map: each university's heatmap cells with affinity of 0.5 or more, already projected onto the app's map
+-- (src/lib/geo/project.ts) as [x, y, affinity]. Derived from Qloo output, so kept in the database, never in git.
+create table if not exists audience_cells (
+  unitid integer primary key references universities(unitid) on delete cascade,
+  cells jsonb not null
+);
