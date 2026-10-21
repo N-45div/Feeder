@@ -77,3 +77,10 @@ create table if not exists audience_cells (
   unitid integer primary key references universities(unitid) on delete cascade,
   cells jsonb not null
 );
+
+-- Upcoming college fairs near a metro, from Google Events through SerpApi (src/lib/brief/events.ts). Shared by every university.
+create table if not exists metro_events (
+  cbsa text primary key references metros(cbsa) on delete cascade,
+  fetched_at timestamptz not null default now(),
+  events jsonb not null
+);
