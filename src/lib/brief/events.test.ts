@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { relevant } from "./events";
+import { relevant, upcoming } from "./events";
 
 describe("relevant", () => {
   it.each([
@@ -13,4 +13,22 @@ describe("relevant", () => {
     ["Indigenous Hip Hop Summit", false],
     ["Showcase Gala", false],
   ])("%s -> %s", (title, keep) => expect(relevant(title)).toBe(keep));
+});
+
+describe("upcoming", () => {
+  const now = new Date("2026-10-22T09:00:00Z");
+  it.each([
+    ["Nov 14", true],
+    ["Oct 22", true],
+    ["Oct 21", true],
+    ["Oct 19", false],
+    ["Jan 14", true],
+    [null, true],
+    ["sometime soon", true],
+  ])("%s -> %s", (start, keep) => expect(upcoming(start, now)).toBe(keep));
+
+  it("rolls a date from last month forward a year only when it is well past", () => {
+    expect(upcoming("Sep 30", now)).toBe(false);
+    expect(upcoming("Aug 1", now)).toBe(true);
+  });
 });

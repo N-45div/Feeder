@@ -1,5 +1,6 @@
 // Upcoming college fairs and admissions events near a metro, from Google Events through SerpApi. One search per metro, kept and
-// shared by every university, under a monthly cap (the plan has few searches). Kept to recruiting events by a keyword filter.
+// shared by every university, under a monthly cap (the plan has few searches), refreshed after three weeks when the budget
+// allows. Kept to recruiting events by a keyword filter, and to dates that haven't passed.
 
 import { sql } from "../db";
 import { take } from "../limits";
@@ -7,6 +8,8 @@ import { take } from "../limits";
 export interface MetroEvent {
   title: string;
   when: string;
+  /** Google's start date, with no year ("Nov 14"). */
+  start: string | null;
   venue: string | null;
   address: string | null;
   link: string | null;
@@ -26,6 +29,18 @@ export function relevant(title: string): boolean {
   return RELEVANT.test(title) && !NOISE.test(title);
 }
 
+/** False once an event's day is over. Google's dates carry no year: one more than two months back is next year's. */
+export function upcoming(start: string | null | undefined, now = new Date()): boolean {
+  if (!start) return true;
+  const day = new Date(`${start} ${now.getUTCFullYear()} 12:00 UTC`);
+  if (Number.isNaN(day.getTime())) return true;
+  if (now.getTime() - day.getTime() > 60 * DAY) day.setUTCFullYear(day.getUTCFullYear() + 1);
+  return day.getTime() >= now.getTime() - DAY;
+}
+
+const DAY = 864e5;
+const STALE_AFTER = 21 * DAY;
+
 type SerpEvent = { title?: string; date?: { when?: string; start_date?: string }; address?: string[]; venue?: { name?: string }; link?: string };
 
 async function search(city: string, key: string): Promise<MetroEvent[]> {
@@ -37,21 +52,27 @@ async function search(city: string, key: string): Promise<MetroEvent[]> {
   return (body.events_results ?? [])
     .filter((e) => e.title && relevant(e.title))
     .slice(0, 6)
-    .map((e) => ({ title: e.title!, when: e.date?.when ?? e.date?.start_date ?? "", venue: e.venue?.name ?? null, address: e.address?.join(", ") ?? null, link: e.link ?? null }));
+    .map((e) => ({ title: e.title!, when: e.date?.when ?? e.date?.start_date ?? "", start: e.date?.start_date ?? null, venue: e.venue?.name ?? null, address: e.address?.join(", ") ?? null, link: e.link ?? null }));
 }
 
-/** The cached events for a metro, or one SerpApi search kept for next time when the month's budget allows. */
+/** A metro's upcoming events: kept from an earlier search, or one SerpApi search when there is none (or it's three weeks old)
+ *  and the month's budget allows. An old search still answers when the budget doesn't. */
 export async function getMetroEvents(cbsa: string): Promise<MetroEvents> {
   const db = sql();
   const [cached] = (await db`select events, fetched_at from metro_events where cbsa = ${cbsa}`) as { events: MetroEvent[]; fetched_at: Date }[];
-  if (cached) return { events: cached.events, fetchedAt: cached.fetched_at.toISOString(), status: "ok" };
+  const kept = (status: MetroEvents["status"]): MetroEvents =>
+    cached ? { events: cached.events.filter((e) => upcoming(e.start)), fetchedAt: cached.fetched_at.toISOString(), status: "ok" } : { events: [], fetchedAt: null, status };
+  if (cached && Date.now() - cached.fetched_at.getTime() < STALE_AFTER) return kept("ok");
+
   const key = process.env.SERPAPI_API_KEY;
-  if (!key) return { events: [], fetchedAt: null, status: "off" };
+  if (!key) return kept("off");
+  const [m] = (await db`select city from metros where cbsa = ${cbsa}`) as { city: string }[];
+  if (!m) return kept("ok");
   const month = new Date().toISOString().slice(0, 7);
-  if (!(await take(`serp:${month}`, Number(process.env.SERPAPI_MONTHLY_CAP ?? 15)))) return { events: [], fetchedAt: null, status: "budget" };
-  const [m] = (await db`select city, states from metros where cbsa = ${cbsa}`) as { city: string; states: string[] }[];
-  if (!m) return { events: [], fetchedAt: null, status: "ok" };
-  const events = await search(`${m.city.replace(/^Urban /, "")} ${m.states[0]}`, key);
-  await db`insert into metro_events (cbsa, events) values (${cbsa}, ${JSON.stringify(events)}) on conflict (cbsa) do nothing`;
-  return { events, fetchedAt: new Date().toISOString(), status: "ok" };
+  if (!(await take(`serp:${month}`, Number(process.env.SERPAPI_MONTHLY_CAP ?? 15)))) return kept("budget");
+  // The city alone: Google Events found nothing for "college fair San Francisco CA" but an expo for "college fair San Francisco".
+  const events = await search(m.city.replace(/^Urban /, ""), key);
+  await db`insert into metro_events (cbsa, events) values (${cbsa}, ${JSON.stringify(events)})
+           on conflict (cbsa) do update set events = excluded.events, fetched_at = now()`;
+  return { events: events.filter((e) => upcoming(e.start)), fetchedAt: new Date().toISOString(), status: "ok" };
 }
