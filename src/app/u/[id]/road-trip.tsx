@@ -2,10 +2,14 @@
 
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import type { Brief } from "@/lib/brief/brief";
+import type { MetroEvents } from "@/lib/brief/events";
 import type { MetroRow } from "@/lib/data/desk";
 import { fmt } from "../../ui";
+import { VisitDay, type VisitPlan } from "./visit-day";
 
-type Load = { status: "ready"; brief: Brief } | { status: "error"; message: string };
+/** A brief as /api/brief sends it; a response cached before the visit day existed lacks the last two. */
+type DayBrief = Brief & { visit?: VisitPlan; events?: MetroEvents };
+type Load = { status: "ready"; brief: DayBrief } | { status: "error"; message: string };
 
 const people = (n: number) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : `${Math.round(n / 1000)}k`);
 
@@ -129,41 +133,44 @@ export function RoadTrip({ unitid, metros, school, map }: { unitid: number; metr
           <h2 id="brief-h" className="mt-1 text-[28px] font-bold leading-tight tracking-tight sm:text-[30px]">{metro.name.split(",")[0].split("-").slice(0, 2).join("–")}</h2>
           <p className="mt-1.5 text-[15px] text-muted">Ranked by Qloo for people who lean toward {school}, within 40 km of the metro. Untested: federal data has no high-school or metro detail.</p>
           {load?.status === "ready" ? (
-            <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3.5">
-              <div className="rounded-[18px] border-[1.5px] border-ink bg-pennant-soft px-4 py-3.5">
-                <p className="text-xs font-bold tracking-[0.12em]">HIGH SCHOOLS TO VISIT</p>
-                {load.brief.highSchools.length ? (
-                  <ol className="mt-2.5 space-y-2">
-                    {load.brief.highSchools.map((p, i) => (
-                      <li key={p.name} className="flex gap-2.5 text-[15px]">
-                        <span className="figure font-bold text-pennant-ink">{i + 1}</span>
-                        <span>
-                          {p.name}
-                          {p.address && <span className="block text-xs text-muted">{p.address}</span>}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                ) : (
-                  <p className="mt-2.5 text-sm text-muted">Qloo ranked no high schools here for this audience.</p>
-                )}
+              <>
+              <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3.5">
+                <div className="rounded-[18px] border-[1.5px] border-ink bg-pennant-soft px-4 py-3.5">
+                  <p className="text-xs font-bold tracking-[0.12em]">HIGH SCHOOLS TO VISIT</p>
+                  {load.brief.highSchools.length ? (
+                    <ol className="mt-2.5 space-y-2">
+                      {load.brief.highSchools.map((p, i) => (
+                        <li key={p.name} className="flex gap-2.5 text-[15px]">
+                          <span className="figure font-bold text-pennant-ink">{i + 1}</span>
+                          <span>
+                            {p.name}
+                            {p.address && <span className="block text-xs text-muted">{p.address}</span>}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : (
+                    <p className="mt-2.5 text-sm text-muted">Qloo ranked no high schools here for this audience.</p>
+                  )}
+                </div>
+                <div className="rounded-[18px] border-[1.5px] border-ink bg-bg px-4 py-3.5">
+                  <p className="text-xs font-bold tracking-[0.12em]">RIVAL COLLEGES NEARBY</p>
+                  {load.brief.colleges.length ? (
+                    <ul className="mt-2.5 space-y-2 text-[15px]">{load.brief.colleges.map((p) => <li key={p.name}>{p.name}</li>)}</ul>
+                  ) : (
+                    <p className="mt-2.5 text-sm text-muted">None ranked here.</p>
+                  )}
+                </div>
+                <div className="rounded-[18px] border-[1.5px] border-ink bg-teal-soft px-4 py-3.5">
+                  <p className="text-xs font-bold tracking-[0.12em]">WHAT RESONATES THERE</p>
+                  <p className="mb-1 mt-2.5 text-xs font-bold text-muted">MUSIC</p>
+                  <Chips items={load.brief.hooks.music.slice(0, 6)} />
+                  <p className="mb-1 mt-3 text-xs font-bold text-muted">TV</p>
+                  <Chips items={load.brief.hooks.tv.slice(0, 6)} />
+                </div>
               </div>
-              <div className="rounded-[18px] border-[1.5px] border-ink bg-bg px-4 py-3.5">
-                <p className="text-xs font-bold tracking-[0.12em]">RIVAL COLLEGES NEARBY</p>
-                {load.brief.colleges.length ? (
-                  <ul className="mt-2.5 space-y-2 text-[15px]">{load.brief.colleges.map((p) => <li key={p.name}>{p.name}</li>)}</ul>
-                ) : (
-                  <p className="mt-2.5 text-sm text-muted">None ranked here.</p>
-                )}
-              </div>
-              <div className="rounded-[18px] border-[1.5px] border-ink bg-teal-soft px-4 py-3.5">
-                <p className="text-xs font-bold tracking-[0.12em]">WHAT RESONATES THERE</p>
-                <p className="mb-1 mt-2.5 text-xs font-bold text-muted">MUSIC</p>
-                <Chips items={load.brief.hooks.music.slice(0, 6)} />
-                <p className="mb-1 mt-3 text-xs font-bold text-muted">TV</p>
-                <Chips items={load.brief.hooks.tv.slice(0, 6)} />
-              </div>
-            </div>
+              {load.brief.visit && load.brief.events && <VisitDay key={pick} plan={load.brief.visit} events={load.brief.events} metro={metro.city} />}
+            </>
           ) : load?.status === "error" ? (
             <p className="mt-4 rounded-xl border-[1.5px] border-ink bg-warn-soft px-4 py-3 text-sm text-warn">{load.message}</p>
           ) : (

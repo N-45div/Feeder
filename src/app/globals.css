@@ -56,6 +56,10 @@ body {
   .press { transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease; }
   .press:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
   .press:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+
+  /* Numbered stops on the visit-day map (MapLibre positions them with transform, so none here). */
+  .visit-pin { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9999px; border: 2px solid #fff; background: var(--ink); color: #fff; box-shadow: 0 0 0 1.5px var(--ink), 2px 2px 0 1.5px var(--ink); font: 700 13px var(--font-geist-mono), ui-monospace, monospace; cursor: pointer; }
+  .visit-pin.first { background: var(--pennant); }
 }
 
 /* ---- motion */
