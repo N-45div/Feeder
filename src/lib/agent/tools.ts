@@ -4,6 +4,8 @@
 import { z } from "zod";
 import feeder from "../../../data/eval/feeder.json";
 import { getBrief } from "../brief/brief";
+import { getMetroEvents } from "../brief/events";
+import { mapsRoute, visitDay } from "../brief/route";
 import { sql } from "../db";
 import { getDesk, listUniversities, stateAbbr, TRIP_MIN_POP } from "../data/desk";
 import { planTrips, REGIONS, type TripMetro } from "./trips";
@@ -78,15 +80,24 @@ export async function metroBrief({ unitid: id, metro }: z.infer<typeof briefInpu
     cbsa = row?.cbsa ?? null;
   }
   if (!cbsa) throw new FeederToolError(`No metro of 250,000+ people matches "${metro}".`);
-  const brief = await getBrief(id, cbsa);
+  const [brief, events] = await Promise.all([getBrief(id, cbsa), getMetroEvents(cbsa).catch(() => null)]);
   if (!brief) throw new FeederToolError("That metro isn't in Feeder's list.");
+  const stops = visitDay(brief.highSchools);
   return {
     university: desk.university.qlooName,
     cbsa,
     highSchoolsToVisit: brief.highSchools,
     rivalCollegesNearby: brief.colleges.map((c) => c.name),
     whatResonates: brief.hooks,
-    notes: ["Ranked by Qloo for people who lean toward this university, within 40 km of the metro. Untested against enrollment: no public data goes below the state."],
+    visitDay: stops.length
+      ? { stops: stops.map((s) => ({ name: s.name, address: s.address, qlooRank: s.rank, kmFromPrevious: s.legKm })), googleMapsRoute: mapsRoute(stops) }
+      : null,
+    collegeFairsNearby: events?.status === "ok" ? events.events.map(({ title, when, venue }) => ({ title, when, venue })) : null,
+    notes: [
+      "Ranked by Qloo for people who lean toward this university, within 40 km of the metro. Untested against enrollment: no public data goes below the state.",
+      "The visit day starts at the top-ranked school and goes to the nearest next; km are straight-line, and the Google Maps link gives drive times.",
+      "College fairs come from Google Events through SerpApi, kept to recruiting events; null means none were searched for this metro.",
+    ],
   };
 }
 
