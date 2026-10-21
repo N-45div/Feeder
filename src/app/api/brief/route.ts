@@ -1,4 +1,6 @@
 import { getBrief } from "@/lib/brief/brief";
+import { getMetroEvents, type MetroEvents } from "@/lib/brief/events";
+import { mapsRoute, visitDay } from "@/lib/brief/route";
 import { sql } from "@/lib/db";
 import { LIMITS, perAddress, take } from "@/lib/limits";
 
@@ -17,9 +19,17 @@ export async function GET(request: Request): Promise<Response> {
     return Response.json({ error: "Today's budget for new briefs is used up; briefs already opened still work." }, { status: 429 });
   }
   try {
-    const brief = await getBrief(unitid, cbsa);
+    const [brief, events] = await Promise.all([
+      getBrief(unitid, cbsa),
+      // Events are extra: a SerpApi failure leaves the brief intact.
+      getMetroEvents(cbsa).catch((error): MetroEvents => {
+        console.error("[events] failed", error);
+        return { events: [], fetchedAt: null, status: "off" };
+      }),
+    ]);
     if (!brief) return Response.json({ error: "No such university or metro." }, { status: 404 });
-    return Response.json(brief, { headers: { "Cache-Control": "public, max-age=3600" } });
+    const stops = visitDay(brief.highSchools);
+    return Response.json({ ...brief, events, visit: { stops, mapsUrl: mapsRoute(stops) } }, { headers: { "Cache-Control": "public, max-age=3600" } });
   } catch (error) {
     console.error("[brief] failed", error);
     return Response.json({ error: "Qloo didn't answer in time. Try this metro again in a moment." }, { status: 502 });
