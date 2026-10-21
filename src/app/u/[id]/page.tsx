@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import feeder from "../../../../data/eval/feeder.json";
-import { getDesk, listUniversities, stateAbbr } from "@/lib/data/desk";
+import { getAudienceCells, getDesk, listUniversities, stateAbbr } from "@/lib/data/desk";
+import { project } from "@/lib/geo/project";
+import { AudienceBase } from "./audience-base";
 import { fmt } from "../../ui";
 import { AskFeeder } from "./ask-feeder";
 import { RoadTrip } from "./road-trip";
@@ -22,6 +24,8 @@ export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
   const desk = Number.isInteger(id) ? await getDesk(id) : null;
   if (!desk) notFound();
   const { university: u, board, metros } = desk;
+  const cells = await getAudienceCells(u.unitid);
+  const pins = Object.fromEntries(metros.map((m) => [m.cbsa, project(m.lon, m.lat)]).filter(([, xy]) => xy)) as Record<string, [number, number]>;
   const school = u.qlooName;
   const r = feeder.fall2022;
 
@@ -45,7 +49,7 @@ export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
       <div className="flex flex-wrap items-start gap-6">
         <div className="flex min-w-0 flex-[999_1_640px] flex-col gap-6">
           <StateBoard board={board} home={stateAbbr(u.state)} homeName={u.state} homeFreshmen={u.home2022} school={school} />
-          <RoadTrip unitid={u.unitid} metros={metros} school={school} />
+          <RoadTrip unitid={u.unitid} metros={metros} school={school} map={{ base: <AudienceBase cells={cells} home={stateAbbr(u.state)} />, campus: project(u.lon, u.lat), pins }} />
           <section id="evidence" aria-labelledby="ev-h">
             <h2 id="ev-h" className="text-2xl font-bold">How sure is this?</h2>
             <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">

@@ -49,6 +49,8 @@ export interface MetroRow {
   pop2025: number;
   pull: number;
   distanceKm: number;
+  lat: number;
+  lon: number;
 }
 
 export interface Desk {
@@ -64,11 +66,17 @@ export async function getDesk(unitid: number): Promise<Desk | null> {
   if (!u) return null;
   const board = (await db`select state, freshmen, expected, pull, grp, gap from state_board where unitid = ${unitid} order by pull desc`) as { state: string; freshmen: number; expected: number; pull: number; grp: Group; gap: number }[];
   const home = stateAbbr(u.state);
-  const metros = (await db`select m.cbsa, m.name, m.city, m.states, m.pop2025, p.pull, p.distance_km from metro_pull p join metros m on m.cbsa = p.cbsa
-    where p.unitid = ${unitid} and not (${home} = any(m.states)) and m.pop2025 >= ${TRIP_MIN_POP} order by p.pull desc, m.pop2025 desc limit 12`) as { cbsa: string; name: string; city: string; states: string[]; pop2025: number; pull: number; distance_km: number }[];
+  const metros = (await db`select m.cbsa, m.name, m.city, m.states, m.pop2025, m.lat, m.lon, p.pull, p.distance_km from metro_pull p join metros m on m.cbsa = p.cbsa
+    where p.unitid = ${unitid} and not (${home} = any(m.states)) and m.pop2025 >= ${TRIP_MIN_POP} order by p.pull desc, m.pop2025 desc limit 12`) as { cbsa: string; name: string; city: string; states: string[]; pop2025: number; lat: number; lon: number; pull: number; distance_km: number }[];
   return {
     university: { ...summary(u), qlooEntityId: u.qloo_entity_id, qlooName: u.qloo_name, home2022: u.home_2022, website: u.website, lat: u.lat, lon: u.lon, inTest: u.in_test },
     board: board.map((b) => ({ state: b.state, abbr: stateAbbr(b.state), freshmen: b.freshmen, expected: b.expected, pull: b.pull, group: b.grp, gap: b.gap })),
-    metros: metros.map((m) => ({ cbsa: m.cbsa, name: m.name, city: m.city, states: m.states, pop2025: m.pop2025, pull: m.pull, distanceKm: m.distance_km })),
+    metros: metros.map((m) => ({ cbsa: m.cbsa, name: m.name, city: m.city.replace(/^Urban /, ""), states: m.states, pop2025: m.pop2025, pull: m.pull, distanceKm: m.distance_km, lat: m.lat, lon: m.lon })),
   };
+}
+
+/** The audience map's cells for one university: [x, y, affinity] on the app's map (scripts/load-cells.mts). */
+export async function getAudienceCells(unitid: number): Promise<[number, number, number][]> {
+  const [row] = (await sql()`select cells from audience_cells where unitid = ${unitid}`) as { cells: [number, number, number][] }[];
+  return row?.cells ?? [];
 }

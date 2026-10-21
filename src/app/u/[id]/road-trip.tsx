@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import type { Brief } from "@/lib/brief/brief";
 import type { MetroRow } from "@/lib/data/desk";
 import { fmt } from "../../ui";
@@ -19,7 +19,15 @@ function Chips({ items }: { items: string[] }) {
   );
 }
 
-export function RoadTrip({ unitid, metros, school }: { unitid: number; metros: MetroRow[]; school: string }) {
+export interface AudienceMap {
+  /** State shapes and heat cells, drawn on the server as SVG. */
+  base: ReactNode;
+  campus: [number, number] | null;
+  /** Map positions of the metros, by cbsa. */
+  pins: Record<string, [number, number]>;
+}
+
+export function RoadTrip({ unitid, metros, school, map }: { unitid: number; metros: MetroRow[]; school: string; map?: AudienceMap }) {
   const [pick, setPick] = useState(metros.find((m) => m.pop2025 >= 1_000_000)?.cbsa ?? metros[0]?.cbsa);
   const [briefs, setBriefs] = useState<Record<string, Load>>({});
   const metro = metros.find((m) => m.cbsa === pick);
@@ -48,6 +56,47 @@ export function RoadTrip({ unitid, metros, school }: { unitid: number; metros: M
         <p className="kicker">Road trip</p>
         <h2 id="metros-h" className="mt-1 text-[28px] font-bold leading-tight tracking-tight sm:text-[30px]">Where to send recruiters</h2>
         <p className="mt-1.5 max-w-3xl leading-relaxed text-muted">Metros of 500,000+ people outside your home state where the pull for {school} is strongest, from the same Qloo map. Pick one for its brief.</p>
+        {map && (
+          <figure className="card mt-4 p-3 sm:p-4">
+            <div className="relative">
+              <svg viewBox="0 0 960 600" className="block h-auto w-full" role="img" aria-label={`Where people who lean toward ${school} live, from Qloo's heatmap, with the top metros pinned`}>
+                {map.base}
+                {map.campus && (
+                  <g transform={`translate(${map.campus[0]} ${map.campus[1]})`} aria-hidden="true">
+                    <circle r={9} fill="#1a1530" />
+                    <path d="M-2 -5v11" stroke="#fff" strokeWidth={1.6} strokeLinecap="round" />
+                    <path d="M-1.5 -5l6 2.4-6 2.4z" fill="#ff6a2b" />
+                  </g>
+                )}
+              </svg>
+              {metros.slice(0, 8).map((m, i) => {
+                const at = map.pins[m.cbsa];
+                if (!at) return null;
+                const on = m.cbsa === pick;
+                return (
+                  <button
+                    key={m.cbsa}
+                    type="button"
+                    onClick={() => setPick(m.cbsa)}
+                    aria-pressed={on}
+                    aria-label={`${m.city}, pull ${m.pull.toFixed(2)}`}
+                    title={`${m.city} · pull ${m.pull.toFixed(2)}`}
+                    className={`pop figure absolute grid h-7 w-7 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-ink text-xs font-bold transition-transform hover:scale-110 ${on ? "z-10 scale-125 bg-ink text-white" : "bg-surface text-ink"}`}
+                    style={{ left: `${(at[0] / 960) * 100}%`, top: `${(at[1] / 600) * 100}%`, animationDelay: `${300 + i * 60}ms` }}
+                  >
+                    {i + 1}
+                  </button>
+                );
+              })}
+            </div>
+            <figcaption className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+              <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ff6a2b]" />Strongest lean toward {school}</span>
+              <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ff6a2b]/55" />Strong</span>
+              <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ffb89c]/60" />Above average</span>
+              <span>Each square is about 30 by 20 km of Qloo&apos;s map. Numbers match the metro cards.</span>
+            </figcaption>
+          </figure>
+        )}
         <div className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
           {metros.slice(0, 8).map((m, i) => (
             <button
@@ -59,7 +108,7 @@ export function RoadTrip({ unitid, metros, school }: { unitid: number; metros: M
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <span className="flex items-baseline justify-between gap-1.5">
-                <span className="text-lg font-bold leading-tight">{m.city}</span>
+                <span className="text-lg font-bold leading-tight"><span className="figure mr-1.5 text-sm text-pennant-ink">{i + 1}</span>{m.city}</span>
                 <span className="figure text-xs text-muted">{m.states.join("-")}</span>
               </span>
               <span className="h-2 overflow-hidden rounded bg-quiet">
