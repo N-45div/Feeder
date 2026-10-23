@@ -66,7 +66,7 @@ Each state score was compared with **gravity**: what the state's population and 
 
 | Model | Fall 2022 | Fall 2020 |
 |---|---|---|
-| Population and distance | 0.74 | 0.74 |
+| Population and distance | 0.74 | 0.73 |
 | … plus Qloo | 0.78 | 0.77 |
 | … plus the assistant | 0.85 | 0.84 |
 | … plus both | 0.85 | 0.84 |
