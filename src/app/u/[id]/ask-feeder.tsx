@@ -13,6 +13,7 @@ const STEPS: Record<string, [running: string, done: string]> = {
   recruiter_metros: ["Ranking metros", "Ranked metros"],
   metro_brief: ["Opening the metro brief", "Opened the metro brief"],
   plan_trips: ["Planning the trips", "Planned the trips"],
+  audience_hotspots: ["Asking Qloo where that audience lives", "Asked Qloo where that audience lives"],
   get_evidence: ["Checking the evidence", "Checked the evidence"],
 };
 

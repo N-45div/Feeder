@@ -9,6 +9,8 @@ export const LIMITS = {
   briefPerAddress: 120,
   /** New briefs fetched from Qloo by everyone per day (each costs about six Qloo calls). */
   freshBriefsPerDay: 400,
+  /** Live Qloo heatmaps the agent may ask for in a day (audience_hotspots); answers already asked are reused free. */
+  liveQlooPerDay: 150,
   /** Questions to the agent, per address and overall, per day. */
   agentPerAddress: 25,
   agentPerDay: 250,
