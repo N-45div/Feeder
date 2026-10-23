@@ -62,7 +62,7 @@ export async function recruiterMetros({ unitid: id, limit = 8 }: z.infer<typeof 
   const desk = await deskOrThrow(id);
   return {
     university: { id, name: desk.university.qlooName },
-    metros: desk.metros.slice(0, limit).map((m) => ({ cbsa: m.cbsa, metro: m.name, qlooPull: m.pull, population2025: m.pop2025, distanceKm: m.distanceKm })),
+    metros: desk.metros.slice(0, limit).map((m) => ({ cbsa: m.cbsa, metro: m.name.replace(/^Urban /, ""), qlooPull: m.pull, population2025: m.pop2025, distanceKm: m.distanceKm })),
     notes: [`Metros of ${TRIP_MIN_POP.toLocaleString("en-US")}+ people outside the home state, by Qloo pull within 60 km. Untested against enrollment: federal data has no metro detail.`],
   };
 }
@@ -113,6 +113,8 @@ export async function tripPlan({ unitid: id, recruiters, weeks, region }: z.infe
   const home = stateAbbr(desk.university.state);
   const rows = (await sql()`select m.cbsa, m.city, m.states, m.pop2025, m.lat, m.lon, p.pull from metro_pull p join metros m on m.cbsa = p.cbsa
     where p.unitid = ${id} and not (${home} = any(m.states)) and m.pop2025 >= ${TRIP_MIN_POP} order by p.pull desc limit 60`) as TripMetro[];
+  // Census names Honolulu's metro "Urban Honolulu"; the desk shows it as Honolulu.
+  for (const m of rows) m.city = m.city.replace(/^Urban /, "");
   const trips = planTrips(rows, { recruiters, weeks, region: region ?? null });
   return {
     university: desk.university.qlooName,
