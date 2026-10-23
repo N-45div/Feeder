@@ -96,3 +96,20 @@ All three conditions must hold:
   - **Aliases shorter than four characters don't count.** Georgetown University's IPEDS alias "GU" matched an unrelated entity.
   - **"Online" isn't treated as a campus label.** Treating it as one let "University of Arkansas" match "Arkansas Online".
 - Result: 133 of the 260 qualifying universities resolve, and 124 of those are outside the pilot.
+
+## Amendment 2 (Oct 23 2026, before any young-audience heatmap is fetched)
+
+**Question:** the students Feeder helps recruit are about 18. Does the pull of people aged 24 and younger track where freshmen come
+from better than the pull of everyone who leans toward the university (which includes alumni, parents and sports fans)?
+
+- **Arm 1b, Qloo young.** The same heatmap call as arm 1, plus `signal.demographics.age=24_and_younger`. A state's score is computed
+  exactly as in arm 1: the popularity-weighted mean affinity of the cells inside it, with fewer than 10 cells left out.
+- **Placebo for arm 1b.** The same fixed pairing (seed 21), using the other university's young scores.
+- **Same universities, outcome and analysis** as above, in Fall 2022 and Fall 2020. Added comparisons, each a paired bootstrap over
+  universities (2,000 resamples):
+  - partial Spearman with the gravity residual: young minus all-ages, young minus assistant, young minus its placebo;
+  - out of sample: gravity + young against gravity + all-ages, and gravity + assistant + young against gravity + assistant.
+- **Decision rule, fixed now.** Feeder's state board switches to young pull only if young beats all-ages on the primary measure in
+  Fall 2022 with an interval that excludes zero, and points the same way in Fall 2020. Otherwise the board keeps all-ages pull. The
+  result is reported either way.
+- **Limits.** Qloo's age groups are its own estimates of who engages with what, and "24 and younger" is wider than freshmen.
