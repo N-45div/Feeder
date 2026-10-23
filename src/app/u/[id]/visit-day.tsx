@@ -39,7 +39,8 @@ function StopMap({ stops, metro }: { stops: Stop[]; metro: string }) {
         map.on("resize", () => {
           if (!moved) map!.fitBounds(bounds, { ...fit, duration: 0 });
         });
-        stops.forEach((s, i) => {
+        // The access stop is added last so it sits on top when a Qloo school is next door.
+        [...stops.entries()].sort(([, a], [, b]) => Number(!!a.access) - Number(!!b.access)).forEach(([i, s]) => {
           const pin = document.createElement("div");
           pin.className = s.access ? "visit-pin access" : i === 0 ? "visit-pin first" : "visit-pin";
           pin.textContent = String(i + 1);
