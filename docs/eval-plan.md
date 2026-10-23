@@ -113,3 +113,7 @@ from better than the pull of everyone who leans toward the university (which inc
   Fall 2022 with an interval that excludes zero, and points the same way in Fall 2020. Otherwise the board keeps all-ages pull. The
   result is reported either way.
 - **Limits.** Qloo's age groups are its own estimates of who engages with what, and "24 and younger" is wider than freshmen.
+
+**Note (Oct 23 2026, after amendment 2's result).** Bentley University resolved under the strict rule, through its IPEDS alias
+"Bentley", to a Qloo entity that turned out to be a luggage brand. It was not scored in either analysis (its all-ages heatmap covered
+two states, short of the 20 the analysis needs), so no result changes. It is left out of the product.

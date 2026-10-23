@@ -23,6 +23,9 @@ const residence = read("data/ipeds/residence.json").fall2022 as Record<string, {
 const strict = read("data/cache/resolved.json") as Record<string, { entityId: string | null; qlooName?: string; pilot?: boolean }>;
 const extra = existsSync("data/cache/resolved-extra.json") ? (read("data/cache/resolved-extra.json") as Record<string, { entityId: string | null; qlooName?: string }>) : {};
 const AUDIENCE = process.argv.includes("--all-ages") ? "" : "-young";
+// Matched by name to a Qloo entity that isn't the university: Bentley University's alias "Bentley" is a luggage brand. It was never
+// scored (its all-ages heatmap covered two states), and it stays out of the product.
+const NOT_THE_UNIVERSITY = new Set([164739]);
 const pulls = read(`data/cache/state-pulls${AUDIENCE}.json`) as Record<string, Record<string, { pull: number }>>;
 
 for (const m of metros) {
@@ -33,6 +36,7 @@ for (const m of metros) {
 let loaded = 0;
 for (const u of universities) {
   const match = strict[u.unitid]?.entityId ? strict[u.unitid] : extra[u.unitid]?.entityId ? extra[u.unitid] : null;
+  if (NOT_THE_UNIVERSITY.has(u.unitid)) continue;
   const heatmapFile = `data/cache/heatmaps${AUDIENCE}/${u.unitid}.json`;
   if (!match?.entityId || !pulls[u.unitid] || !existsSync(heatmapFile)) continue;
   const r = residence[u.unitid];
