@@ -28,7 +28,7 @@ export function StateBoard({ board, home, homeName, homeFreshmen, school }: { bo
       <p className="kicker">State board</p>
       <h2 id="board-h" className="mt-1 text-[28px] font-bold leading-tight tracking-tight sm:text-[30px]">Where you pull vs where you enroll</h2>
       <p className="mt-1.5 max-w-3xl leading-relaxed text-muted">
-        Pull is Qloo&apos;s measure of how much people in a state lean toward {school}. Enrollment is how many first-time freshmen came from there in Fall 2022,
+        Pull is Qloo&apos;s measure of how much people aged 24 and younger in a state lean toward {school}: the age of the students you recruit. Enrollment is how many first-time freshmen came from there in Fall 2022,
         against what population and distance alone predict.
       </p>
 

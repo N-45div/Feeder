@@ -59,11 +59,11 @@ export function RoadTrip({ unitid, metros, school, map }: { unitid: number; metr
       <section aria-labelledby="metros-h">
         <p className="kicker">Road trip</p>
         <h2 id="metros-h" className="mt-1 text-[28px] font-bold leading-tight tracking-tight sm:text-[30px]">Where to send recruiters</h2>
-        <p className="mt-1.5 max-w-3xl leading-relaxed text-muted">Metros of 500,000+ people outside your home state where the pull for {school} is strongest, from the same Qloo map. Pick one for its brief.</p>
+        <p className="mt-1.5 max-w-3xl leading-relaxed text-muted">Metros of 500,000+ people outside your home state where people aged 24 and younger lean toward {school} most, from the same Qloo map. Pick one for its brief.</p>
         {map && (
           <figure className="card mt-4 p-3 sm:p-4">
             <div className="relative">
-              <svg viewBox="0 0 960 600" className="block h-auto w-full" role="img" aria-label={`Where people who lean toward ${school} live, from Qloo's heatmap, with the top metros pinned`}>
+              <svg viewBox="0 0 960 600" className="block h-auto w-full" role="img" aria-label={`Where people aged 24 and younger who lean toward ${school} live, from Qloo's heatmap, with the top metros pinned`}>
                 {map.base}
                 {map.campus && (
                   <g transform={`translate(${map.campus[0]} ${map.campus[1]})`} aria-hidden="true">
@@ -94,9 +94,8 @@ export function RoadTrip({ unitid, metros, school, map }: { unitid: number; metr
               })}
             </div>
             <figcaption className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
-              <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ff6a2b]" />Strongest lean toward {school}</span>
+              <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ff6a2b]" />Strongest lean toward {school}, ages 24 and younger</span>
               <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ff6a2b]/55" />Strong</span>
-              <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-3.5 bg-[#ffb89c]/60" />Above average</span>
               <span>Each square is about 30 by 20 km of Qloo&apos;s map. Numbers match the metro cards.</span>
             </figcaption>
           </figure>
@@ -131,7 +130,7 @@ export function RoadTrip({ unitid, metros, school, map }: { unitid: number; metr
         <section aria-labelledby="brief-h" className="card p-5 sm:p-6">
           <p className="kicker">Metro brief</p>
           <h2 id="brief-h" className="mt-1 text-[28px] font-bold leading-tight tracking-tight sm:text-[30px]">{metro.name.split(",")[0].split("-").slice(0, 2).join("–")}</h2>
-          <p className="mt-1.5 text-[15px] text-muted">Ranked by Qloo for people who lean toward {school}, within 40 km of the metro. Untested: federal data has no high-school or metro detail.</p>
+          <p className="mt-1.5 text-[15px] text-muted">Schools ranked by Qloo for people who lean toward {school}, within 40 km of the metro; music and TV for the 24-and-younger part of that audience. Untested: federal data has no high-school or metro detail.</p>
           {load?.status === "ready" ? (
               <>
               <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3.5">
@@ -162,7 +161,7 @@ export function RoadTrip({ unitid, metros, school, map }: { unitid: number; metr
                   )}
                 </div>
                 <div className="rounded-[18px] border-[1.5px] border-ink bg-teal-soft px-4 py-3.5">
-                  <p className="text-xs font-bold tracking-[0.12em]">WHAT RESONATES THERE</p>
+                  <p className="text-xs font-bold tracking-[0.12em]">WHAT RESONATES WITH YOUNG PEOPLE</p>
                   <p className="mb-1 mt-2.5 text-xs font-bold text-muted">MUSIC</p>
                   <Chips items={load.brief.hooks.music.slice(0, 6)} />
                   <p className="mb-1 mt-3 text-xs font-bold text-muted">TV</p>

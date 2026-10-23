@@ -12,10 +12,10 @@ export function Pennant({ className = "", fill = "var(--pennant)" }: { className
 }
 
 export const GROUP: Record<Group, { label: string; fill: string; text: string; line: string }> = {
-  untapped: { label: "Untapped", fill: "bg-pennant", text: "text-ink", line: "People here lean toward you, but fewer freshmen come than geography predicts. A place to recruit harder." },
-  stronghold: { label: "Stronghold", fill: "bg-teal", text: "text-white", line: "Strong pull and more freshmen than geography predicts. Keep doing what works here." },
-  earned: { label: "Enrolls without pull", fill: "bg-lilac", text: "text-ink", line: "More freshmen than geography predicts, without much pull: likely programs, price or past recruiting." },
-  quiet: { label: "Quiet", fill: "bg-quiet", text: "text-ink", line: "Little pull and fewer freshmen than geography predicts." },
+  untapped: { label: "Untapped", fill: "bg-pennant", text: "text-ink", line: "Young people here lean toward you, but fewer freshmen come than geography predicts. A place to recruit harder." },
+  stronghold: { label: "Stronghold", fill: "bg-teal", text: "text-white", line: "Strong pull among young people, and more freshmen than geography predicts. Keep doing what works here." },
+  earned: { label: "Enrolls without pull", fill: "bg-lilac", text: "text-ink", line: "More freshmen than geography predicts, without much pull among young people: likely programs, price or past recruiting." },
+  quiet: { label: "Quiet", fill: "bg-quiet", text: "text-ink", line: "Little pull among young people, and fewer freshmen than geography predicts." },
 };
 
 export function SectionHead({ kicker, title, id, children }: { kicker: string; title: string; id?: string; children?: React.ReactNode }) {

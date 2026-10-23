@@ -27,7 +27,7 @@ export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
   const cells = await getAudienceCells(u.unitid);
   const pins = Object.fromEntries(metros.map((m) => [m.cbsa, project(m.lon, m.lat)]).filter(([, xy]) => xy)) as Record<string, [number, number]>;
   const school = u.qlooName;
-  const r = feeder.fall2022;
+  const y = feeder.amendment2_young.fall2022;
 
   return (
     <div className="space-y-6">
@@ -53,9 +53,9 @@ export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
           <section id="evidence" aria-labelledby="ev-h">
             <h2 id="ev-h" className="text-2xl font-bold">How sure is this?</h2>
             <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
-              <Tile value={`+${r.partial_spearman_vs_gravity_residual.qloo.mean.toFixed(2)}`} text={`Qloo pull tracks what population and distance can't explain, across ${r.universities} universities, in 2022 and again in 2020. A placebo scores ${r.partial_spearman_vs_gravity_residual.placebo.mean.toFixed(2)}.`} />
-              <Tile value={`+${r.partial_spearman_vs_gravity_residual.assistant.mean.toFixed(2)}`} text="An AI assistant asked the same question scores about the same. Qloo gets there from measured taste, and goes down to metros and high schools." />
-              <Tile value={r.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} text={`For ranking every state, the assistant predicts better (${r.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} against ${r.out_of_sample_spearman["gravity+qloo"].mean.toFixed(2)} with Qloo). Feeder says so.`} />
+              <Tile value={`+${y.partial_spearman_vs_gravity_residual.young.mean.toFixed(2)}`} text={`Qloo pull among people 24 and younger tracks what population and distance can't explain, across ${y.universities} universities, in 2022 and again in 2020.`} />
+              <Tile value={`+${y.partial_spearman_vs_gravity_residual.assistant.mean.toFixed(2)}`} text="An AI assistant asked the same question explains less. Qloo gets there from measured taste, and goes down to metros and high schools." />
+              <Tile value={y.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} text={`For ranking every state outright, the assistant still predicts better (${y.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} against ${y.out_of_sample_spearman["gravity+young"].mean.toFixed(2)} with Qloo). Feeder says so.`} />
             </div>
             <Link href="/evidence" className="mt-3 inline-block text-sm font-bold text-pennant-ink hover:underline">All the evidence and its limits</Link>
           </section>

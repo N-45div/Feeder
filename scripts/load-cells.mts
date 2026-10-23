@@ -6,7 +6,9 @@ import { geohashCentre } from "../src/lib/geo/geo";
 import { project } from "../src/lib/geo/project";
 import type { Cell } from "../src/lib/score/pull";
 
-const MIN_AFFINITY = 0.5;
+const ALL_AGES = process.argv.includes("--all-ages");
+// The young-audience heatmaps have about 3.4 times as many cells, so their map keeps the top quarter (affinity is a percentile).
+const MIN_AFFINITY = ALL_AGES ? 0.5 : 0.75;
 const env = Object.fromEntries(readFileSync(".env.local", "utf8").split(/\r?\n/).filter((l) => /^[A-Z0-9_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1).replace(/^"|"$/g, "")]));
 const sql = neon(env.DATABASE_URL);
 await sql.query("create table if not exists audience_cells (unitid integer primary key references universities(unitid) on delete cascade, cells jsonb not null)");
@@ -14,7 +16,8 @@ await sql.query("create table if not exists audience_cells (unitid integer prima
 const ids = (await sql`select unitid from universities`) as { unitid: number }[];
 let loaded = 0, cellsTotal = 0;
 for (const { unitid } of ids) {
-  const file = `data/cache/heatmaps/${unitid}.json`;
+  // Young-audience cells (amendment 2); --all-ages draws the original map.
+  const file = `data/cache/heatmaps${ALL_AGES ? "" : "-young"}/${unitid}.json`;
   if (!existsSync(file)) continue;
   const cells: Cell[] = JSON.parse(readFileSync(file, "utf8"));
   const out: [number, number, number][] = [];

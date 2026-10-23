@@ -1,5 +1,7 @@
 // Loads universities, state boards, metros and metro pull into Postgres. Safe to re-run: every write is an upsert or a
 // replace per university. Run: npx --yes tsx scripts/load-db.mts
+// Pull comes from the young-audience heatmaps (people 24 and younger), as amendment 2's result decided; --all-ages loads the
+// original all-ages pull instead.
 import { existsSync, readFileSync } from "node:fs";
 import { neon } from "@neondatabase/serverless";
 import { stateBoard, type StateInfo } from "../src/lib/score/board";
@@ -20,7 +22,8 @@ const metros: Metro[] = read("data/geo/metros.json").metros;
 const residence = read("data/ipeds/residence.json").fall2022 as Record<string, { total: number; states: Record<string, number> }>;
 const strict = read("data/cache/resolved.json") as Record<string, { entityId: string | null; qlooName?: string; pilot?: boolean }>;
 const extra = existsSync("data/cache/resolved-extra.json") ? (read("data/cache/resolved-extra.json") as Record<string, { entityId: string | null; qlooName?: string }>) : {};
-const pulls = read("data/cache/state-pulls.json") as Record<string, Record<string, { pull: number }>>;
+const AUDIENCE = process.argv.includes("--all-ages") ? "" : "-young";
+const pulls = read(`data/cache/state-pulls${AUDIENCE}.json`) as Record<string, Record<string, { pull: number }>>;
 
 for (const m of metros) {
   await sql`insert into metros (cbsa, name, city, states, pop2025, lat, lon) values (${m.cbsa}, ${m.name}, ${m.city}, ${m.states}, ${m.pop2025}, ${m.lat}, ${m.lon})
@@ -30,7 +33,7 @@ for (const m of metros) {
 let loaded = 0;
 for (const u of universities) {
   const match = strict[u.unitid]?.entityId ? strict[u.unitid] : extra[u.unitid]?.entityId ? extra[u.unitid] : null;
-  const heatmapFile = `data/cache/heatmaps/${u.unitid}.json`;
+  const heatmapFile = `data/cache/heatmaps${AUDIENCE}/${u.unitid}.json`;
   if (!match?.entityId || !pulls[u.unitid] || !existsSync(heatmapFile)) continue;
   const r = residence[u.unitid];
   const freshmen = Object.fromEntries(Object.entries(r.states).map(([k, v]) => [Number(k), v]));

@@ -25,6 +25,7 @@ const TOOLS: [string, string][] = [
   ["state_board", "Freshmen by state against what geography predicts, with Qloo pull and a group."],
   ["recruiter_metros", "The metros where pull is strongest, for recruiter travel."],
   ["metro_brief", "High schools to visit, rival colleges nearby, and what resonates there."],
+  ["audience_hotspots", "Asks Qloo live where young people who'd like a given brand, show or game lean your way."],
   ["plan_trips", "Who goes where each week, by territory."],
   ["get_evidence", "These numbers and their limits."],
 ];
@@ -35,6 +36,12 @@ export default function Evidence() {
     ["Fall 2020 (replication)", feeder.fall2020_replication],
   ] as const;
   const r = feeder.fall2022;
+  const young = [
+    ["Fall 2022", feeder.amendment2_young.fall2022],
+    ["Fall 2020 (replication)", feeder.amendment2_young.fall2020_replication],
+  ] as const;
+  const y = feeder.amendment2_young.fall2022;
+  const y20 = feeder.amendment2_young.fall2020_replication;
   const seattle = retired.primary_teen_shelves;
   const head = "px-4 py-2.5 text-xs font-bold tracking-[0.1em] text-muted";
   return (
@@ -43,12 +50,46 @@ export default function Evidence() {
         <p className="kicker">Evidence</p>
         <h1 className="mt-1 font-varsity text-4xl tracking-wide sm:text-5xl">HOW SURE IS FEEDER?</h1>
         <p className="mt-3 max-w-3xl text-lg leading-relaxed text-muted">
-          The test was written down and pushed before it ran (docs/eval-plan.md in the repository, with one amendment made before any score existed).
-          The results below are as they came out, including where an AI assistant does better.
+          Each test was written down and pushed before it ran (docs/eval-plan.md in the repository, with two amendments, each made before its scores
+          existed). The results below are as they came out, including where an AI assistant does better.
         </p>
       </header>
 
-      <Card n="01" title="Does Qloo know where a university's students come from?">
+      <Card n="01" title="Asking about the right people: 24 and younger">
+        <p className="text-muted">
+          The students a university recruits are about 18, but the first test counted everyone who leans toward it, alumni and sports fans included. Amendment 2
+          asked Qloo the same question about people aged 24 and younger, scored the same way on the same {y.universities} universities, and was written down
+          before any of it was fetched.
+        </p>
+        <div className="overflow-x-auto rounded-2xl border-[1.5px] border-ink">
+          <table className="w-full min-w-[560px] text-left">
+            <thead className="bg-bg">
+              <tr>
+                <th scope="col" className={head}>BEYOND POPULATION AND DISTANCE</th>
+                {young.map(([label]) => <th key={label} scope="col" className={head}>{label.toUpperCase()}</th>)}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line">
+              {(["young", "qloo", "assistant", "placebo_young"] as const).map((k) => (
+                <tr key={k} className={k === "young" ? "bg-pennant-soft" : ""}>
+                  <th scope="row" className="px-4 py-2.5 font-semibold">{{ young: "Qloo pull, 24 and younger", qloo: "Qloo pull, all ages", assistant: "AI assistant alone (Claude Haiku 5.5)", placebo_young: "Placebo: another university's young pull" }[k]}</th>
+                  {young.map(([label, t]) => (
+                    <td key={label} className="px-4 py-2.5"><span className="figure text-lg font-bold">{signed(t.partial_spearman_vs_gravity_residual[k].mean)}</span> <span className="text-xs text-muted">{ci(t.partial_spearman_vs_gravity_residual[k])}</span></td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <ul className="list-disc space-y-2 pl-5">
+          <li><strong>It beats the AI assistant:</strong> {signed(y.young_minus_assistant.mean)} in 2022 (range {ci(y.young_minus_assistant)}) and {signed(y20.young_minus_assistant.mean)} in 2020. What young people actually like explains more of where freshmen come from than what an assistant remembers.</li>
+          <li><strong>It beats the all-ages pull</strong> by {signed(y.young_minus_all_ages.mean)} (range {ci(y.young_minus_all_ages)}), in both years. The rule written in advance said the board would switch to it if so, and it has.</li>
+          <li><strong>A caution:</strong> another university&apos;s young pull also explains some ({signed(y.partial_spearman_vs_gravity_residual.placebo_young.mean)}), so part of the gain is where young people are in general. A university&apos;s own young pull still beats that placebo by {signed(y.young_minus_placebo.mean)} (range {ci(y.young_minus_placebo)}).</li>
+          <li><strong>For ranking every state outright, the assistant is still better</strong> ({y.out_of_sample_spearman["gravity+assistant"].mean.toFixed(2)} against {y.out_of_sample_spearman["gravity+young"].mean.toFixed(2)} with young pull), and young pull adds nothing on top of it ({signed(y.assistant_plus_young_minus_gravity_plus_assistant.mean)}).</li>
+        </ul>
+      </Card>
+
+      <Card n="02" title="The first test: everyone who leans your way">
         <p className="text-muted">
           Ground truth: IPEDS, the federal record of where each university&apos;s first-time freshmen lived, by state. {feeder.test_universities} universities that
           Qloo knows by name, with at least 1,000 freshmen and a fifth from out of state; ten universities tried by hand first were left out. The question is
@@ -100,16 +141,17 @@ export default function Evidence() {
         </ul>
       </Card>
 
-      <Card n="02" title="What this does not establish">
+      <Card n="03" title="What this does not establish">
         <ul className="list-disc space-y-2 pl-5 text-muted">
           <li>Qloo&apos;s data is from 2026 and the enrollment data from 2020 and 2022, so this measures alignment, not a forecast.</li>
           <li>Where students come from also reflects past recruiting, alumni, athletics and price; the test can&apos;t separate taste from those.</li>
           <li><strong className="text-ink">Metros, high schools, rival colleges and what resonates are untested.</strong> IPEDS has no detail below the state.</li>
           <li>Only first-time freshmen are counted, not transfers or graduate students.</li>
+          <li>Qloo&apos;s age groups are its own estimates of who engages with what, and &ldquo;24 and younger&rdquo; is wider than freshmen.</li>
         </ul>
       </Card>
 
-      <Card n="03" title="What came before: an idea that failed its test">
+      <Card n="04" title="What came before: an idea that failed its test">
         <p>
           This repository first held Shelf Desk, which picked teen books for students&apos; interests from Qloo&apos;s book graph. Its pre-registered test on Seattle
           Public Library checkouts failed: per copy, its picks were borrowed {Math.abs(seattle["2025"].main.llm.desk_advantage_pct)}% less than an assistant&apos;s in

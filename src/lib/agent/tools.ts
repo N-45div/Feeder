@@ -5,7 +5,8 @@ import { z } from "zod";
 import feeder from "../../../data/eval/feeder.json";
 import { getBrief } from "../brief/brief";
 import { getMetroEvents } from "../brief/events";
-import { mapsRoute, visitDay } from "../brief/route";
+import { planVisitDay } from "../brief/access";
+import { mapsRoute } from "../brief/route";
 import { sql } from "../db";
 import { getDesk, listUniversities, stateAbbr, TRIP_MIN_POP } from "../data/desk";
 import { planTrips, REGIONS, type TripMetro } from "./trips";
@@ -49,7 +50,7 @@ export async function stateBoard({ unitid: id, group, limit = 10 }: z.infer<type
     states: ordered.slice(0, limit).map((r) => ({ state: r.state, group: r.group, freshmenFall2022: r.freshmen, geographyPredicts: r.expected, qlooPull: r.pull })),
     counts: Object.fromEntries((["untapped", "stronghold", "earned", "quiet"] as const).map((g) => [g, desk.board.filter((r) => r.group === g).length])),
     notes: [
-      "Pull is the popularity-weighted mean affinity of Qloo heatmap cells in the state for people who lean toward this university.",
+      "Pull is the popularity-weighted mean affinity of Qloo heatmap cells in the state for people aged 24 and younger who lean toward this university (the age of applicants; the pre-registered test found it tracks enrollment better than all ages).",
       "Geography predicts = freshmen expected from the state's population and its distance from campus alone, fitted for this university.",
       "Groups: pull at or above the median state vs below, and freshmen above vs below what geography predicts.",
     ],
@@ -82,7 +83,7 @@ export async function metroBrief({ unitid: id, metro }: z.infer<typeof briefInpu
   if (!cbsa) throw new FeederToolError(`No metro of 250,000+ people matches "${metro}".`);
   const [brief, events] = await Promise.all([getBrief(id, cbsa), getMetroEvents(cbsa).catch(() => null)]);
   if (!brief) throw new FeederToolError("That metro isn't in Feeder's list.");
-  const stops = visitDay(brief.highSchools);
+  const stops = await planVisitDay(cbsa, brief.highSchools);
   return {
     university: desk.university.qlooName,
     cbsa,
@@ -90,12 +91,20 @@ export async function metroBrief({ unitid: id, metro }: z.infer<typeof briefInpu
     rivalCollegesNearby: brief.colleges.map((c) => c.name),
     whatResonates: brief.hooks,
     visitDay: stops.length
-      ? { stops: stops.map((s) => ({ name: s.name, address: s.address, qlooRank: s.rank, kmFromPrevious: s.legKm })), googleMapsRoute: mapsRoute(stops) }
+      ? {
+          stops: stops.map((s) =>
+            s.access
+              ? { name: s.name, city: s.address, accessStop: true, lowIncomeBasis: s.access.basis === "title_i" ? "Title I schoolwide" : "40%+ free or reduced-price lunch", enrollment: s.access.enrollment, kmFromPrevious: s.legKm }
+              : { name: s.name, address: s.address, qlooRank: s.rank, kmFromPrevious: s.legKm },
+          ),
+          googleMapsRoute: mapsRoute(stops),
+        }
       : null,
     collegeFairsNearby: events?.status === "ok" ? events.events.map(({ title, when, venue }) => ({ title, when, venue })) : null,
     notes: [
       "Ranked by Qloo for people who lean toward this university, within 40 km of the metro. Untested against enrollment: no public data goes below the state.",
       "The visit day starts at the top-ranked school and goes to the nearest next; km are straight-line, and the Google Maps link gives drive times.",
+      "One stop (accessStop) is the large low-income public school nearest the route, from federal school data, not Qloo: out-of-state recruiting visits tend to skip schools like it. Name it as an access stop.",
       "College fairs come from Google Events through SerpApi, kept to recruiting events; null means none were searched for this metro.",
     ],
   };
@@ -131,12 +140,22 @@ export async function tripPlan({ unitid: id, recruiters, weeks, region }: z.infe
 export const evidenceInput = z.object({});
 export async function getEvidence() {
   const r = feeder.fall2022;
-  const p = r.partial_spearman_vs_gravity_residual;
+  const y = feeder.amendment2_young.fall2022;
+  const p = y.partial_spearman_vs_gravity_residual;
   return {
-    test: `Pre-registered (docs/eval-plan.md). IPEDS freshman residence by state, Fall 2022, replicated on Fall 2020, ${r.universities} universities.`,
-    beyondGeography: { qloo: p.qloo, assistantAlone: p.assistant, placebo: p.placebo, readAs: "Partial Spearman of each score with what population and distance leave unexplained." },
-    predictingTheRanking: { gravity: r.out_of_sample_spearman.gravity.mean, gravityPlusQloo: r.out_of_sample_spearman["gravity+qloo"].mean, gravityPlusAssistant: r.out_of_sample_spearman["gravity+assistant"].mean, all: r.out_of_sample_spearman["gravity+qloo+assistant"].mean },
-    readAs: "Qloo's pull is a real signal beyond geography and matches what an assistant knows there; for ranking every state the assistant is better, and Qloo adds nothing on top of it. Metros, high schools and what resonates are Qloo-only and untested.",
+    test: `Pre-registered (docs/eval-plan.md, amendment 2 for the young audience). IPEDS freshman residence by state, Fall 2022, replicated on Fall 2020, ${y.universities} universities.`,
+    beyondGeography: {
+      qlooPull24AndYounger: p.young,
+      qlooPullAllAges: p.qloo,
+      assistantAlone: p.assistant,
+      placeboAnotherUniversitysYoungPull: p.placebo_young,
+      youngMinusAssistant: y.young_minus_assistant,
+      readAs: "Partial Spearman of each score with what population and distance leave unexplained.",
+    },
+    predictingTheRanking: { gravity: y.out_of_sample_spearman.gravity.mean, gravityPlusYoungPull: y.out_of_sample_spearman["gravity+young"].mean, gravityPlusAssistant: y.out_of_sample_spearman["gravity+assistant"].mean, all: y.out_of_sample_spearman["gravity+assistant+young"].mean },
+    firstTestAllAges: { qloo: r.partial_spearman_vs_gravity_residual.qloo, assistant: r.partial_spearman_vs_gravity_residual.assistant, placebo: r.partial_spearman_vs_gravity_residual.placebo },
+    readAs:
+      "Qloo pull among people 24 and younger explains more of what geography misses than all-ages pull or an AI assistant, in 2022 and 2020. Part of that is where young people are in general (another university's young pull also scores above zero). For ranking every state outright the assistant is still better. Metros, high schools and what resonates are untested.",
     limits: [
       "Qloo's data is from 2026 and the enrollment data from 2020 and 2022: alignment, not a forecast.",
       "Where students come from also reflects past recruiting, alumni, athletics and price.",
