@@ -41,7 +41,7 @@ function StopMap({ stops, metro }: { stops: Stop[]; metro: string }) {
         });
         stops.forEach((s, i) => {
           const pin = document.createElement("div");
-          pin.className = i === 0 ? "visit-pin first" : "visit-pin";
+          pin.className = s.access ? "visit-pin access" : i === 0 ? "visit-pin first" : "visit-pin";
           pin.textContent = String(i + 1);
           pin.title = s.name;
           new maplibregl.Marker({ element: pin })
@@ -103,11 +103,15 @@ export function VisitDay({ plan, events, metro }: { plan: VisitPlan; events: Met
             <ol className="mt-2.5 space-y-2">
               {plan.stops.map((s, i) => (
                 <li key={s.name} className="flex items-start gap-2.5 text-[15px]">
-                  <span className={`figure grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-bold text-white ${i === 0 ? "bg-pennant" : "bg-ink"}`}>{i + 1}</span>
+                  <span className={`figure grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-bold text-white ${s.access ? "bg-teal" : i === 0 ? "bg-pennant" : "bg-ink"}`}>{i + 1}</span>
                   <span>
                     {s.name}
+                    {s.access && <span className="ml-1.5 rounded-full bg-teal-soft px-2 py-0.5 align-middle text-[11px] font-bold text-teal">ACCESS STOP</span>}
                     <span className="block text-xs text-muted">
-                      Qloo rank {s.rank} · {i === 0 ? "start here" : `${s.legKm} km from stop ${i}`}
+                      {s.access
+                        ? `${s.access.basis === "title_i" ? "Title I public school" : "Public school, 40%+ low-income"}${s.access.enrollment ? ` · ${s.access.enrollment.toLocaleString("en-US")} students` : ""}`
+                        : `Qloo rank ${s.rank}`}{" "}
+                      · {i === 0 ? "start here" : `${s.legKm} km from stop ${i}`}
                     </span>
                   </span>
                 </li>
@@ -125,6 +129,12 @@ export function VisitDay({ plan, events, metro }: { plan: VisitPlan; events: Met
             </a>
           )}
           <p className="mt-2 text-xs text-muted">Nearest school next, from the top-ranked one. Straight-line km; Google Maps gives the drive times.</p>
+          {plan.stops.some((s) => s.access) && (
+            <p className="mt-1.5 text-xs text-muted">
+              The access stop is the large public school nearest the route where many students come from low-income families (Title I, or 40%+ free or
+              reduced-price lunch), from federal school data. Out-of-state recruiting visits tend to skip schools like it.
+            </p>
+          )}
         </div>
 
         <div className="rounded-[18px] border-[1.5px] border-ink bg-lilac/25 px-4 py-3.5">

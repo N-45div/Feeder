@@ -1,6 +1,7 @@
 import { getBrief } from "@/lib/brief/brief";
 import { getMetroEvents, type MetroEvents } from "@/lib/brief/events";
-import { mapsRoute, visitDay } from "@/lib/brief/route";
+import { planVisitDay } from "@/lib/brief/access";
+import { mapsRoute } from "@/lib/brief/route";
 import { sql } from "@/lib/db";
 import { LIMITS, perAddress, take } from "@/lib/limits";
 
@@ -28,7 +29,7 @@ export async function GET(request: Request): Promise<Response> {
       }),
     ]);
     if (!brief) return Response.json({ error: "No such university or metro." }, { status: 404 });
-    const stops = visitDay(brief.highSchools);
+    const stops = await planVisitDay(cbsa, brief.highSchools);
     return Response.json({ ...brief, events, visit: { stops, mapsUrl: mapsRoute(stops) } }, { headers: { "Cache-Control": "public, max-age=3600" } });
   } catch (error) {
     console.error("[brief] failed", error);
