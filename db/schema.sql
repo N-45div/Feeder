@@ -84,3 +84,30 @@ create table if not exists metro_events (
   fetched_at timestamptz not null default now(),
   events jsonb not null
 );
+
+-- Public high schools from the federal Common Core of Data (scripts/public-schools.mjs, public domain). A visit day adds the
+-- nearest large low-income school as an access stop (src/lib/brief/route.ts). basis: "title_i" (Title I schoolwide, 2021) or
+-- "lunch" (40%+ free or reduced-price lunch, 2022, for a state that reported no Title I status).
+create table if not exists public_high_schools (
+  ncessch text primary key,
+  name text not null,
+  city text,
+  state text,
+  lat double precision not null,
+  lon double precision not null,
+  cbsa text,
+  enrollment integer,
+  low_income boolean not null,
+  basis text not null
+);
+create index if not exists public_high_schools_low_income on public_high_schools (low_income, lat, lon)
+;
+
+-- Live audience questions from the agent's audience_hotspots tool: metro pull from one Qloo heatmap per (university, interest),
+-- kept so the same question costs nothing the second time.
+create table if not exists audience_queries (
+  key text primary key,
+  fetched_at timestamptz not null default now(),
+  interest jsonb,
+  pulls jsonb not null
+)
