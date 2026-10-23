@@ -1,4 +1,4 @@
--- Feeder: everything the app reads at request time, so judges never wait on (or spend) bulk API calls.
+-- Feeder: everything the app reads at request time, so visitors never wait on (or spend) bulk API calls.
 
 create table if not exists universities (
   unitid integer primary key,
