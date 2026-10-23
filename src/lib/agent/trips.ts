@@ -42,6 +42,18 @@ function route(stops: TripMetro[]): TripMetro[] {
   return out;
 }
 
+/** Cuts a route into weeks of nearby stops: a stop more than MAX_HOP_KM from the last one starts a new week (Honolulu flies alone). */
+function intoWeeks(stops: TripMetro[], perWeek: number): TripMetro[][] {
+  const weeks: TripMetro[][] = [];
+  for (const stop of stops) {
+    const week = weeks[weeks.length - 1];
+    const last = week?.[week.length - 1];
+    if (!week || week.length >= perWeek || distanceKm(last.lat, last.lon, stop.lat, stop.lon) > MAX_HOP_KM) weeks.push([stop]);
+    else week.push(stop);
+  }
+  return weeks;
+}
+
 export function planTrips(metros: TripMetro[], opts: { recruiters: number; weeks: number; stopsPerWeek?: number; region?: string | null }): Trip[] {
   const perWeek = opts.stopsPerWeek ?? 2;
   const allowed = opts.region ? new Set(REGIONS[opts.region] ?? []) : null;
@@ -54,18 +66,16 @@ export function planTrips(metros: TripMetro[], opts: { recruiters: number; weeks
   const size = Math.ceil(byLon.length / opts.recruiters);
   const trips: Trip[] = [];
   for (let r = 0; r < opts.recruiters; r++) {
-    const territory = route(byLon.slice(r * size, (r + 1) * size));
-    // A week groups nearby stops only: a stop more than MAX_HOP_KM from the last one starts a new week (Honolulu flies alone).
-    const weeks: TripMetro[][] = [];
-    for (const stop of territory) {
-      const week = weeks[weeks.length - 1];
-      const last = week?.[week.length - 1];
-      if (!week || week.length >= perWeek || distanceKm(last.lat, last.lon, stop.lat, stop.lon) > MAX_HOP_KM) weeks.push([stop]);
-      else week.push(stop);
+    let stops = route(byLon.slice(r * size, (r + 1) * size));
+    let weeks = intoWeeks(stops, perWeek);
+    // More weeks than asked for (a far stop took a week alone): drop the weakest stop and regroup, so a strong metro left
+    // alone at the end of the route isn't lost to a pair of weaker ones.
+    while (weeks.length > opts.weeks) {
+      const weakest = stops.reduce((w, x) => (x.pull < w.pull ? x : w));
+      stops = route(stops.filter((x) => x !== weakest));
+      weeks = intoWeeks(stops, perWeek);
     }
-    // More weeks than asked for (a far stop took a week alone): keep the weeks with the most pull, in route order.
-    const keep = new Set([...weeks].sort((a, b) => b.reduce((s, x) => s + x.pull, 0) - a.reduce((s, x) => s + x.pull, 0)).slice(0, opts.weeks));
-    weeks.filter((w) => keep.has(w)).forEach((stops, w) => trips.push({ recruiter: r + 1, week: w + 1, stops: stops.map((s) => ({ cbsa: s.cbsa, city: s.city, states: s.states, pull: s.pull })) }));
+    weeks.forEach((week, w) => trips.push({ recruiter: r + 1, week: w + 1, stops: week.map((s) => ({ cbsa: s.cbsa, city: s.city, states: s.states, pull: s.pull })) }));
   }
   return trips;
 }
