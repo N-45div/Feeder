@@ -24,9 +24,10 @@ export function addressOf(headers: Headers): string {
 
 const hashed = (address: string) => createHash("sha256").update(`feeder:${address}`).digest("hex").slice(0, 24);
 
-/** Counts one use against a key for today; false once today's count passes the limit. */
-export async function take(key: string, limit: number): Promise<boolean> {
-  const [row] = (await sql()`insert into usage_counts (key, day, count) values (${key}, current_date, 1)
+/** Counts one use against a key for today (or this month); false once the count passes the limit. */
+export async function take(key: string, limit: number, per: "day" | "month" = "day"): Promise<boolean> {
+  const [row] = (await sql()`insert into usage_counts (key, day, count)
+    values (${key}, case when ${per} = 'month' then date_trunc('month', current_date)::date else current_date end, 1)
     on conflict (key, day) do update set count = usage_counts.count + 1 returning count`) as { count: number }[];
   return row.count <= limit;
 }

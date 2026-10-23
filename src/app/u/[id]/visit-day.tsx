@@ -71,6 +71,7 @@ function StopMap({ stops, metro }: { stops: Stop[]; metro: string }) {
 function fairsNote(events: MetroEvents, metro: string): string | null {
   if (events.status === "off") return "Fair search isn't connected in this copy of Feeder.";
   if (events.status === "budget") return "This month's fair searches are used up; metros already searched still show theirs.";
+  if (events.status === "error") return "The fair search didn't answer just now. Open this metro again later.";
   if (!events.events.length) return `No upcoming college fairs near ${metro} on Google Events.`;
   return null;
 }

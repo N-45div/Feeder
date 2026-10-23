@@ -1,6 +1,7 @@
-// Upcoming college fairs and admissions events near a metro, from Google Events through SerpApi. One search per metro, kept and
+// Upcoming college fairs near a metro, from Google Events through SerpApi. One search per metro, kept and
 // shared by every university, under a monthly cap (the plan has few searches), refreshed after three weeks when the budget
-// allows. Kept to recruiting events by a keyword filter, and to dates that haven't passed.
+// allows. Kept to events where many colleges meet students (fairs, expos, college nights), not one college's own open house, and
+// to dates that haven't passed. The filter also runs on stored searches, so a tighter rule applies to them at once.
 
 import { sql } from "../db";
 import { take } from "../limits";
@@ -18,12 +19,13 @@ export interface MetroEvent {
 export interface MetroEvents {
   events: MetroEvent[];
   fetchedAt: string | null;
-  /** "ok", or why there is nothing: no SerpApi key here, or this month's searches are used up. */
-  status: "ok" | "off" | "budget";
+  /** "ok", or why there is nothing: no SerpApi key here, this month's searches are used up, or the search failed just now. */
+  status: "ok" | "off" | "budget" | "error";
 }
 
-const RELEVANT = /\b(college (fair|expo|night|day|tour|and career|& career)|admissions?|university fair|nacac|discovery day|open house|preview day|transfer fair|hbcu|black college|campus visit|financial aid night|fafsa)\b/i;
-const NOISE = /\b(study abroad|camp fair|job fair|summit|gala|conference|alumni)\b/i;
+// Events where many colleges meet students. A single college's open house or preview day isn't a recruiting stop for another one.
+const RELEVANT = /\b(college (fair|expo|night|and career|& career)s?|university fair|nacac|hbcu (college )?fair|black college expo|transfer fair)\b/i;
+const NOISE = /\b(study abroad|camp fair|job fair|summit|gala|conference|alumni|fundraiser|benefit|auction|master'?s|graduate)\b/i;
 
 export function relevant(title: string): boolean {
   return RELEVANT.test(title) && !NOISE.test(title);
@@ -45,7 +47,7 @@ type SerpEvent = { title?: string; date?: { when?: string; start_date?: string }
 
 async function search(city: string, key: string): Promise<MetroEvent[]> {
   const params = new URLSearchParams({ engine: "google_events", q: `college fair ${city}`, hl: "en", gl: "us", api_key: key });
-  const res = await fetch(`https://serpapi.com/search.json?${params}`, { signal: AbortSignal.timeout(25_000) });
+  const res = await fetch(`https://serpapi.com/search.json?${params}`, { signal: AbortSignal.timeout(40_000) });
   if (!res.ok) throw new Error(`SerpApi ${res.status}`);
   const body = (await res.json()) as { events_results?: SerpEvent[]; error?: string };
   if (body.error && !/hasn't returned any results/i.test(body.error)) throw new Error(body.error);
@@ -61,7 +63,7 @@ export async function getMetroEvents(cbsa: string): Promise<MetroEvents> {
   const db = sql();
   const [cached] = (await db`select events, fetched_at from metro_events where cbsa = ${cbsa}`) as { events: MetroEvent[]; fetched_at: Date }[];
   const kept = (status: MetroEvents["status"]): MetroEvents =>
-    cached ? { events: cached.events.filter((e) => upcoming(e.start)), fetchedAt: cached.fetched_at.toISOString(), status: "ok" } : { events: [], fetchedAt: null, status };
+    cached ? { events: cached.events.filter((e) => relevant(e.title) && upcoming(e.start)), fetchedAt: cached.fetched_at.toISOString(), status: "ok" } : { events: [], fetchedAt: null, status };
   if (cached && Date.now() - cached.fetched_at.getTime() < STALE_AFTER) return kept("ok");
 
   const key = process.env.SERPAPI_API_KEY;
@@ -69,7 +71,7 @@ export async function getMetroEvents(cbsa: string): Promise<MetroEvents> {
   const [m] = (await db`select city from metros where cbsa = ${cbsa}`) as { city: string }[];
   if (!m) return kept("ok");
   const month = new Date().toISOString().slice(0, 7);
-  if (!(await take(`serp:${month}`, Number(process.env.SERPAPI_MONTHLY_CAP ?? 15)))) return kept("budget");
+  if (!(await take(`serp:${month}`, Number(process.env.SERPAPI_MONTHLY_CAP ?? 15), "month"))) return kept("budget");
   // The city alone: Google Events found nothing for "college fair San Francisco CA" but an expo for "college fair San Francisco".
   const events = await search(m.city.replace(/^Urban /, ""), key);
   await db`insert into metro_events (cbsa, events) values (${cbsa}, ${JSON.stringify(events)})

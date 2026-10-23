@@ -25,7 +25,7 @@ export async function GET(request: Request): Promise<Response> {
       // Events are extra: a SerpApi failure leaves the brief intact.
       getMetroEvents(cbsa).catch((error): MetroEvents => {
         console.error("[events] failed", error);
-        return { events: [], fetchedAt: null, status: "off" };
+        return { events: [], fetchedAt: null, status: "error" };
       }),
     ]);
     if (!brief) return Response.json({ error: "No such university or metro." }, { status: 404 });
