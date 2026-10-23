@@ -244,5 +244,255 @@
    ],
    "n": 109
   }
+ },
+ "amendment2_young": {
+  "fall2022": {
+   "universities": 109,
+   "partial_spearman_vs_gravity_residual": {
+    "qloo": {
+     "mean": 0.318,
+     "ci95": [
+      0.272,
+      0.363
+     ],
+     "n": 109
+    },
+    "young": {
+     "mean": 0.405,
+     "ci95": [
+      0.356,
+      0.452
+     ],
+     "n": 109
+    },
+    "placebo_young": {
+     "mean": 0.144,
+     "ci95": [
+      0.091,
+      0.195
+     ],
+     "n": 109
+    },
+    "assistant": {
+     "mean": 0.276,
+     "ci95": [
+      0.248,
+      0.306
+     ],
+     "n": 109
+    }
+   },
+   "young_minus_all_ages": {
+    "mean": 0.087,
+    "ci95": [
+     0.054,
+     0.12
+    ],
+    "n": 109
+   },
+   "young_minus_assistant": {
+    "mean": 0.128,
+    "ci95": [
+     0.075,
+     0.179
+    ],
+    "n": 109
+   },
+   "young_minus_placebo": {
+    "mean": 0.261,
+    "ci95": [
+     0.197,
+     0.33
+    ],
+    "n": 109
+   },
+   "out_of_sample_spearman": {
+    "gravity": {
+     "mean": 0.739,
+     "ci95": [
+      0.711,
+      0.763
+     ],
+     "n": 109
+    },
+    "gravity+qloo": {
+     "mean": 0.777,
+     "ci95": [
+      0.753,
+      0.798
+     ],
+     "n": 109
+    },
+    "gravity+young": {
+     "mean": 0.778,
+     "ci95": [
+      0.755,
+      0.799
+     ],
+     "n": 109
+    },
+    "gravity+assistant": {
+     "mean": 0.851,
+     "ci95": [
+      0.832,
+      0.869
+     ],
+     "n": 109
+    },
+    "gravity+assistant+young": {
+     "mean": 0.848,
+     "ci95": [
+      0.829,
+      0.865
+     ],
+     "n": 109
+    }
+   },
+   "gravity_plus_young_minus_gravity_plus_all_ages": {
+    "mean": 0.001,
+    "ci95": [
+     -0.007,
+     0.01
+    ],
+    "n": 109
+   },
+   "assistant_plus_young_minus_gravity_plus_assistant": {
+    "mean": -0.003,
+    "ci95": [
+     -0.007,
+     0.001
+    ],
+    "n": 109
+   },
+   "top10_hit_rate": {
+    "young": 0.453,
+    "qloo": 0.513,
+    "assistant": 0.811
+   }
+  },
+  "fall2020_replication": {
+   "universities": 108,
+   "partial_spearman_vs_gravity_residual": {
+    "qloo": {
+     "mean": 0.321,
+     "ci95": [
+      0.271,
+      0.367
+     ],
+     "n": 108
+    },
+    "young": {
+     "mean": 0.408,
+     "ci95": [
+      0.364,
+      0.453
+     ],
+     "n": 108
+    },
+    "placebo_young": {
+     "mean": 0.155,
+     "ci95": [
+      0.104,
+      0.206
+     ],
+     "n": 108
+    },
+    "assistant": {
+     "mean": 0.271,
+     "ci95": [
+      0.243,
+      0.3
+     ],
+     "n": 108
+    }
+   },
+   "young_minus_all_ages": {
+    "mean": 0.087,
+    "ci95": [
+     0.055,
+     0.121
+    ],
+    "n": 108
+   },
+   "young_minus_assistant": {
+    "mean": 0.137,
+    "ci95": [
+     0.088,
+     0.187
+    ],
+    "n": 108
+   },
+   "young_minus_placebo": {
+    "mean": 0.253,
+    "ci95": [
+     0.189,
+     0.319
+    ],
+    "n": 108
+   },
+   "out_of_sample_spearman": {
+    "gravity": {
+     "mean": 0.735,
+     "ci95": [
+      0.71,
+      0.758
+     ],
+     "n": 108
+    },
+    "gravity+qloo": {
+     "mean": 0.774,
+     "ci95": [
+      0.748,
+      0.794
+     ],
+     "n": 108
+    },
+    "gravity+young": {
+     "mean": 0.774,
+     "ci95": [
+      0.751,
+      0.795
+     ],
+     "n": 108
+    },
+    "gravity+assistant": {
+     "mean": 0.84,
+     "ci95": [
+      0.82,
+      0.858
+     ],
+     "n": 108
+    },
+    "gravity+assistant+young": {
+     "mean": 0.839,
+     "ci95": [
+      0.819,
+      0.856
+     ],
+     "n": 108
+    }
+   },
+   "gravity_plus_young_minus_gravity_plus_all_ages": {
+    "mean": 0.001,
+    "ci95": [
+     -0.009,
+     0.01
+    ],
+    "n": 108
+   },
+   "assistant_plus_young_minus_gravity_plus_assistant": {
+    "mean": -0.001,
+    "ci95": [
+     -0.006,
+     0.003
+    ],
+    "n": 108
+   },
+   "top10_hit_rate": {
+    "young": 0.452,
+    "qloo": 0.51,
+    "assistant": 0.795
+   }
+  }
  }
 }
