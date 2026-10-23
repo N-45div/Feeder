@@ -66,7 +66,8 @@ export default async function UniversityPage({ params }: PageProps<"/u/[id]">) {
           suggestions={[
             "Where are we under-recruiting?",
             "Plan two recruiters' fall trips, three weeks each",
-            metros[0] ? `Which ${metros[0].city} high schools should we visit?` : "Which metros should we visit first?",
+            // Asks Qloo live (audience_hotspots); the page itself already lists the metro's high schools.
+            "Where do students who love the outdoors lean our way?",
           ]}
         />
         <div className="h-20 w-full lg:hidden" aria-hidden="true" />
