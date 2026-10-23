@@ -1,4 +1,4 @@
-"""Feeder's evaluation, exactly as written in docs/eval-plan.md (with amendment 1).
+"""Feeder's evaluation, exactly as written in docs/eval-plan.md (with amendments 1 and 2).
 
 Inputs: data/ipeds/*.json, data/geo/states.json (public), data/cache/{resolved,state-pulls}.json and data/cache/assistant/*.json
 (Qloo and assistant output, gitignored). Writes aggregates only to data/eval/feeder.json.
@@ -27,6 +27,9 @@ states = {s["name"]: s for s in load("data/geo/states.json")["states"]}
 fips_name = {s["fips"]: s["name"] for s in states.values()}
 resolved = load("data/cache/resolved.json")
 pulls = load("data/cache/state-pulls.json")
+# Amendment 2: pull among people aged 24 and younger, from the same heatmap call with an age signal.
+YOUNG_PATH = ROOT / "data/cache/state-pulls-young.json"
+pulls_young = load("data/cache/state-pulls-young.json") if YOUNG_PATH.exists() else {}
 assistant = {}
 for f in (ROOT / "data/cache/assistant").glob("*.json"):
     assistant[int(f.stem)] = json.loads(f.read_text(encoding="utf-8"))["order"]
@@ -63,6 +66,8 @@ def frame(uid, year, field="pull"):
             "qloo": pulls[str(uid)][name][field],
             "placebo": pulls[str(placebo_of[uid])].get(name, {}).get(field, float("nan")),
             "assistant": 1 - rank[name] / max(len(order) - 1, 1) if name in rank else float("nan"),
+            "young": pulls_young.get(str(uid), {}).get(name, {}).get(field, float("nan")),
+            "placebo_young": pulls_young.get(str(placebo_of[uid]), {}).get(name, {}).get(field, float("nan")),
         })
     return rows
 
@@ -115,10 +120,10 @@ def design(rows, extra):
     return np.column_stack(cols)
 
 
-def out_of_sample(frames):
+def out_of_sample(frames, models=MODELS):
     """Leave one university out: pooled OLS on the others (with a per-university intercept removed by demeaning)."""
-    result = {m: {} for m in MODELS}
-    for m, extra in MODELS.items():
+    result = {m: {} for m in models}
+    for m, extra in models.items():
         blocks = {}
         for uid, rows in frames.items():
             X = design(rows, extra)
@@ -161,6 +166,36 @@ def report(year, field="pull"):
     }
 
 
+YOUNG_MODELS = {
+    "gravity": [],
+    "gravity+qloo": ["qloo"],
+    "gravity+young": ["young"],
+    "gravity+assistant": ["assistant"],
+    "gravity+assistant+young": ["assistant", "young"],
+}
+
+
+def report_young(year):
+    """Amendment 2: young-audience pull against all-ages pull, the assistant and its own placebo."""
+    frames = {uid: frame(uid, year) for uid in test}
+    frames = {k: v for k, v in frames.items() if len(v) >= 20}
+    p = {k: {uid: partial(rows, k) for uid, rows in frames.items()} for k in ("qloo", "young", "placebo_young", "assistant")}
+    ids = [u for u in frames if not math.isnan(p["young"][u])]
+    oos = out_of_sample({u: frames[u] for u in ids}, YOUNG_MODELS)
+    pick = lambda d: [d[u] for u in ids]
+    return {
+        "universities": len(ids),
+        "partial_spearman_vs_gravity_residual": {k: boot_mean(pick(v)) for k, v in p.items()},
+        "young_minus_all_ages": boot_diff(pick(p["young"]), pick(p["qloo"])),
+        "young_minus_assistant": boot_diff(pick(p["young"]), pick(p["assistant"])),
+        "young_minus_placebo": boot_diff(pick(p["young"]), pick(p["placebo_young"])),
+        "out_of_sample_spearman": {m: boot_mean(list(v.values())) for m, v in oos.items()},
+        "gravity_plus_young_minus_gravity_plus_all_ages": boot_diff(pick(oos["gravity+young"]), pick(oos["gravity+qloo"])),
+        "assistant_plus_young_minus_gravity_plus_assistant": boot_diff(pick(oos["gravity+assistant+young"]), pick(oos["gravity+assistant"])),
+        "top10_hit_rate": {k: round(float(np.mean([top10(frames[u], k) for u in ids])), 3) for k in ("young", "qloo", "assistant")},
+    }
+
+
 def main():
     result = {
         "plan": "docs/eval-plan.md (amendment 1)",
@@ -169,6 +204,8 @@ def main():
         "fall2020_replication": report("2020"),
         "robustness_plain_mean_affinity_fall2022": report("2022", field="meanAffinity")["partial_spearman_vs_gravity_residual"],
     }
+    if pulls_young:
+        result["amendment2_young"] = {"fall2022": report_young("2022"), "fall2020_replication": report_young("2020")}
     out = ROOT / "data/eval"
     out.mkdir(parents=True, exist_ok=True)
     (out / "feeder.json").write_text(json.dumps(result, indent=1) + "\n", encoding="utf-8")

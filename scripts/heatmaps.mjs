@@ -1,16 +1,19 @@
 // Fetches one national Qloo heatmap per resolved university (docs/eval-plan.md, arm 1):
 // filter.type=urn:heatmap, signal.interests.entities=<university>, filter.location.query=United States.
 // Output: data/cache/heatmaps/<unitid>.json (gitignored: Qloo output). Resumable. Run: node scripts/heatmaps.mjs
+// --young adds signal.demographics.age=24_and_younger (amendment 2) and writes to data/cache/heatmaps-young/.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const env = Object.fromEntries(readFileSync(".env.local", "utf8").split(/\r?\n/).filter((l) => /^[A-Z0-9_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1).replace(/^"|"$/g, "")]));
 const BASE = env.QLOO_BASE_URL || "https://hackathon.api.qloo.com";
-const OUT = "data/cache/heatmaps";
+const YOUNG = process.argv.includes("--young");
+const OUT = YOUNG ? "data/cache/heatmaps-young" : "data/cache/heatmaps";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 mkdirSync(OUT, { recursive: true });
 
 async function heatmap(entityId) {
-  const url = `${BASE}/v2/insights?${new URLSearchParams({ "filter.type": "urn:heatmap", "signal.interests.entities": entityId, "filter.location.query": "United States" })}`;
+  const params = { "filter.type": "urn:heatmap", "signal.interests.entities": entityId, "filter.location.query": "United States", ...(YOUNG ? { "signal.demographics.age": "24_and_younger" } : {}) };
+  const url = `${BASE}/v2/insights?${new URLSearchParams(params)}`;
   for (let attempt = 0; attempt < 6; attempt++) {
     const res = await fetch(url, { headers: { "X-Api-Key": env.QLOO_API_KEY } });
     if (res.status === 429 || res.status >= 500) { await sleep(2000 * (attempt + 1)); continue; }
